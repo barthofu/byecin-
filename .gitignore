@@ -1,0 +1,5 @@
+# trashable content
+.dist/
+
+# sensible data
+.env*

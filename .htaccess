@@ -1,0 +1,4 @@
+RewriteEngine On <br />
+RewriteBase /<br />
+RewriteRule ^index\.html$ index.php?page=/<br />
+RewriteRule ^([a-zA-Z0-9-]*\.html)$ index.php?req=$1 [L,QSA]
