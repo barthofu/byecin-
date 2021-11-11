@@ -2,7 +2,7 @@
     <ul>
         <?php
 
-        var_dump($data['view']);
+        var_dump($props['films']);
 
         ?>
     </ul>

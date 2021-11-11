@@ -4,6 +4,10 @@ class Films extends Controller {
 
     public function index() {
 
-        $this->view('films/index', []);
+        $filmModel = $this->model('Film');
+
+        $films = $filmModel::getAll();
+
+        $this->view('films/index', [ 'films' => $films]);
     }
 }

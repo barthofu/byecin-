@@ -1,6 +1,6 @@
 <?php
 
-class App {
+class Router {
 
     protected $controllerName = 'home';
     protected $controller;
@@ -13,7 +13,7 @@ class App {
         $req = $this->parseUrl();
 
         //on vérifie si la route existe bien, sinon ça sera celle par défaut à savoir 'home'
-        if ($req != NULL && file_exists('src/controllers/' . $req[0])) {
+        if ($req != NULL && file_exists('src/controllers/' . $req[0] . '.php')) {
             $this->controllerName = $req[0];
             unset($req[0]);
         }

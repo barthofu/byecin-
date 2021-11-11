@@ -5,12 +5,12 @@ class Controller {
     public function model ($model) {
 
         require_once 'src/models/' . $model . '.php';
-        return new $model();
+        return $model;
     }
 
-    public function view ($view, $data = []) {
+    public function view ($view, $props = []) {
 
-        $data['view'] = $view;
+        $props['view'] = $view;
 
         //including the header, the view and the footer    
         require_once 'src/views/modules/header.php';
