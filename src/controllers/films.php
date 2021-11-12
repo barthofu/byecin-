@@ -2,7 +2,7 @@
 
 class Films extends Controller {
 
-    public function index() {
+    public function index () {
 
         $filmModel = $this->model('Film');
 

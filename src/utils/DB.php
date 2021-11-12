@@ -11,6 +11,10 @@ class DB extends PDO {
         }
     }
 
+    // public function query ($query, $args) {
+
+    // }
+
     public function execQuery ($query, $args) {
 
         $q = $this->prepare($query);

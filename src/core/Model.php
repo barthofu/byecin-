@@ -73,7 +73,7 @@ class Model {
         $result = $q->fetch();
 
         if ($result) return new $className($result);
-        else return FALSE;
+        else return false;
     } 
 
 

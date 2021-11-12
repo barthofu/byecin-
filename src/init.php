@@ -22,3 +22,7 @@ require_once 'utils/DB.php';
 require_once 'core/Model.php';
 Model::$_db = new DB(HOST, DB, USER, PASSWORD);
 
+    // utils
+
+require_once 'utils/url.php';
+require_once 'utils/session.php';

@@ -8,9 +8,9 @@ class Controller {
         return $model;
     }
 
-    public function view ($view, $props = []) {
+    public function view ($view, $data = []) {
 
-        $props['view'] = $view;
+        $data['view'] = $view;
 
         //including the header, the view and the footer    
         require_once 'src/views/modules/header.php';

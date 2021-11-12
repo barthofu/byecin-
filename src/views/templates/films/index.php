@@ -2,7 +2,7 @@
     <ul>
         <?php
 
-        var_dump($props['films']);
+        var_dump($data['films']);
 
         ?>
     </ul>
