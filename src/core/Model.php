@@ -20,7 +20,7 @@ class Model {
 
     public function add ($query, $data) {
 
-        static::$_db->execQuery(
+        return static::$_db->execQuery(
             $query,
             $data
         );
@@ -28,7 +28,7 @@ class Model {
 
     public function update ($query, $data) {
 
-        static::$_db->execQuery(
+        return static::$_db->execQuery(
             $query,
             $data
         );

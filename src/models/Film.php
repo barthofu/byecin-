@@ -2,12 +2,12 @@
 
 class Film extends Model {
 
-    private $id;
-	private $nom;
-	private $annee;
-	private $score;
-	private $nbVotants;
-	private $image;
+    private int $id;
+	private string $nom;
+	private int $annee;
+	private float $score;
+	private int $nbVotants;
+	private string $image;
 
 	function __construct ($data) {
 
@@ -16,22 +16,26 @@ class Film extends Model {
 
     // fonctions DAO
 
-    public function addOrUpdate ($data) {
+    public function saveOrUpdate () {
 
         $q = static::$_db->execQuery(
-            'SELECT * FROM '. static::class .' WHERE nom = :nom OR id = :id',
-            $data
+            'SELECT * FROM '. static::class .' WHERE nom = :nom',
+            [ 'nom' => $this->nom ]
         );
             
         $result = $q->fetch();
 
-        if ($result) parent::update(
-            'UPDATE '. static::class .' SET nom = :nom, annee = :annee, score = :score, nbVotants = :nbVotants, image = :image WHERE id = :id',
-            $data
-        );
-        else parent::add(
+        if ($result) {
+
+            $this->setId($result['id']);
+            return $this->update(
+                'UPDATE '. static::class .' SET nom = :nom, annee = :annee, score = :score, nbVotants = :nbVotants, image = :image WHERE id = :id',
+                get_object_vars($this)
+            );
+        }
+        else return $this->add(
             'INSERT INTO '. static::class .' (nom, annee, score, nbVotants, image) VALUES (:nom, :annee, :score, :nbVotants, :image)',    
-            $data
+            get_object_vars($this)
         );
     }
 

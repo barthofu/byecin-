@@ -2,10 +2,10 @@
 
 class User extends Model {
 
-    private $id;
-	private $username;
-	private $password;
-	private $created_at;
+    private int $id;
+	private string $username;
+	private string $password;
+	private string $created_at;
 
 	function __construct ($data) {
 

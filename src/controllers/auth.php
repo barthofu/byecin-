@@ -10,8 +10,7 @@ class Auth extends Controller {
     public function register () {
 
         if (isLoggedIn()) {
-            $url = getCurrentURL();
-            header('location: ' . str_replace('/auth/register', '/', $url));
+            header('location: ' . str_replace('/auth/register', '/', getCurrentURL()));
             exit();
         }
 
@@ -56,10 +55,9 @@ class Auth extends Controller {
                 $User = $this->model('User');
                 $user = new $User([ 'username' => $data['username'], 'password' => $data['password'] ]);
                 
-                $url = getCurrentURL();
                 if ($user->register()) {
-                    // header('location: ' . str_replace('/register', '/login', $url));
-                    // exit();
+                    header('location: ' . str_replace('/register', '/login', getCurrentURL()));
+                    exit();
                 }
                 else $data['usernameError'] = 'Ce nom d\'utilisateur est déjà prit';
 
@@ -74,8 +72,7 @@ class Auth extends Controller {
     public function login () {
 
         if (isLoggedIn()) {
-            $url = getCurrentURL();
-            header('location: ' . str_replace('/auth/login', '/', $url));
+            header('location: ' . str_replace('/auth/login', '/', getCurrentURL()));
             exit();
         }
 
@@ -117,8 +114,7 @@ class Auth extends Controller {
         unset($_SESSION['userId']);
         unset($_SESSION['username']);
 
-        $url = getCurrentURL();
-        header('location: ' . str_replace('/auth/logout', '/', $url));
+        header('location: ' . str_replace('/auth/logout', '/', getCurrentURL()));
     }
 
     // fonctions utils
@@ -128,8 +124,7 @@ class Auth extends Controller {
         $_SESSION['userId'] = $loggedUser->getId();
         $_SESSION['username'] = $loggedUser->getUsername();
 
-        $url = getCurrentURL();
-        header('location: ' . str_replace('/auth/login', '/', $url));
+        header('location: ' . str_replace('/auth/login', '/', getCurrentURL()));
     }
 
 }
