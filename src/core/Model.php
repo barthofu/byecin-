@@ -16,6 +16,18 @@ class Model {
         }
     }
 
+    public function getAttributes () {
+
+        $attributes = get_object_vars($this);
+        $filteredAttributes = array_filter(
+            $attributes,
+            fn ($attributeKey) => !str_starts_with($attributeKey, '_'),
+            ARRAY_FILTER_USE_KEY
+        );
+
+        return $filteredAttributes;
+    }
+
     // fonctions DAO
 
     public function add ($query, $data) {
@@ -49,7 +61,7 @@ class Model {
         $className = static::class;
     
         $q = static::$_db->execQuery(
-            'SELECT * FROM '. static::class . ($orderBy ? ' ORDER BY :orderBy' : ''),
+            'SELECT * FROM '. $className . ($orderBy ? ' ORDER BY :orderBy' : ''),
             array( 'orderBy' => $orderBy )
         );
     
@@ -61,12 +73,12 @@ class Model {
         );
     }
     
-    public static function getById ($_db, $id) {
+    public static function getById ($id) {
 
         $className = static::class;
     
-        $q = $_db->execQuery(
-            'SELECT * FROM '. static::class .' WHERE id = :id',
+        $q = static::$_db->execQuery(
+            'SELECT * FROM '. $className .' WHERE id = :id',
             array( 'id' => $id )
         );
 

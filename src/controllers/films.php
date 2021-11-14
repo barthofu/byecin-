@@ -6,13 +6,11 @@ class Films extends Controller {
 
         $Film = $this->model('Film');
         $Casting = $this->model('Casting');
-        $Acteur = $this->model('Acteur');
 
         $films = $Film::getAll();
         $castings = $Casting::getAll();
-        $acteurs = $Acteur::getAll();
 
-        $films = DB::getAssociationsArray($films, 'filmId', $acteurs, 'acteurId', $castings, 'acteurs');
+        for ($i = 0; $i < count($films); $i++) $films[$i]->setActeurs($castings);
 
         $this->view('films/index', [ 'films' => $films ]);
     }

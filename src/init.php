@@ -17,7 +17,7 @@ require_once 'core/Controller.php';
 
     // du système de model de base (avec instantiation d'une connexion à la DB)
 
-require_once 'utils/DB.php';
+require_once 'core/DB.php';
 
 require_once 'core/Model.php';
 Model::$_db = new DB(HOST, DB, USER, PASSWORD);

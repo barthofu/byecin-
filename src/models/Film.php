@@ -9,6 +9,8 @@ class Film extends Model {
 	private int $nbVotants;
 	private string $image;
 
+    private array $_acteurs = [];
+
 	function __construct ($data) {
 
         $this->hydrate($data);
@@ -30,16 +32,29 @@ class Film extends Model {
             $this->setId($result['id']);
             return $this->update(
                 'UPDATE '. static::class .' SET nom = :nom, annee = :annee, score = :score, nbVotants = :nbVotants, image = :image WHERE id = :id',
-                get_object_vars($this)
+                $this->getAttributes()
             );
         }
         else return $this->add(
             'INSERT INTO '. static::class .' (nom, annee, score, nbVotants, image) VALUES (:nom, :annee, :score, :nbVotants, :image)',    
-            get_object_vars($this)
+            $this->getAttributes()
         );
     }
 
     // ========= GETTERS ET SETTERS ==========
+
+    public function getActeurs () { return $this->_acteurs; }
+
+    public function setActeurs ($castings) {
+
+        $model = 'Acteur';
+        require_once $model . '.php';
+
+        $this->_acteurs = [];
+        foreach ($castings as $key => $casting) {
+            if ($casting->getFilmId() == $this->id) array_push($this->_acteurs, $model::getById($casting->getActeurId()));
+        }
+    }
 
     public function getId() { return $this->id; }
 

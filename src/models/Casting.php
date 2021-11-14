@@ -17,7 +17,7 @@ class Casting extends Model {
 
         return $this->add(
             'INSERT INTO '. static::class .' (filmId, acteurId) VALUES (:filmId, :acteurId)',    
-            get_object_vars($this)
+            $this->getAttributes()
         );
     }
 

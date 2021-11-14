@@ -13,13 +13,13 @@ class Router {
         $req = $this->parseUrl();
 
         //on vérifie si la route existe bien, sinon ça sera celle par défaut à savoir 'home'
-        if ($req != NULL && file_exists('src/controllers/' . $req[0] . '.php')) {
+        if ($req != NULL && file_exists('../src/controllers/' . $req[0] . '.php')) {
             $this->controllerName = $req[0];
             unset($req[0]);
         }
 
         //on importe le controller associé à la route
-        require_once 'src/controllers/' . $this->controllerName . '.php';
+        require_once '../src/controllers/' . $this->controllerName . '.php';
         $this->controller = new $this->controllerName;
 
         //on vérifie maintenant s'il existe une action
