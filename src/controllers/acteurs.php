@@ -18,7 +18,7 @@ class Acteurs extends Controller {
     public function add () {
 
         if (!isLoggedIn()) {
-            header('location: ' . str_replace('/films/add', '/', getCurrentURL()));
+            header('location: ' . getURL('/'));
             exit();
         }
 

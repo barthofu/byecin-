@@ -21,6 +21,6 @@
 
         <button id="submit" type="submit" value="submit">Submit</button>
 
-        <p class="options">Tu possèdes déjà un compte ? <a href="<?= str_replace('/register', '/login', getCurrentURL()) ?>/users/register">Connecte toi !</a></p>
+        <p class="options">Tu possèdes déjà un compte ? <a href="<?= getURL('/auth/login') ?>/users/register">Connecte toi !</a></p>
     </form>
 </div>

@@ -15,10 +15,43 @@ class Films extends Controller {
         $this->view('films/index', [ 'films' => $films ]);
     }
 
+    public function get ($params)  {
+
+        $data = [
+            //valeurs par défaut 
+            'film' => '',
+            //erreurs
+            'notFoundError' => false
+        ];
+
+        // si aucun paramètre n'est passé dans l'url
+        if (!isset($params['id'])) {
+            header('location: ' . getURL('/films'));
+            exit();
+        }
+
+        $Film = $this->model('Film');
+        $Casting = $this->model('Casting');
+        $castings = $Casting::getAll();
+
+        $film = $Film::getById($params['id']);
+
+        if ($film) {
+
+            $film->setActeurs($castings);
+            $data['film'] = $film;
+        } 
+        else
+            $data['notFoundError'] = true;
+
+        $this->view('films/get', $data);
+        
+    }
+
     public function add () {
 
         if (!isLoggedIn()) {
-            header('location: ' . str_replace('/films/add', '/', getCurrentURL()));
+            header('location: ' . getURL('/'));
             exit();
         }
 

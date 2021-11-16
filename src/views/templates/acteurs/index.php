@@ -7,7 +7,7 @@
         ?>
     </ul>
 
-    <a href="./update_movie.php" class="add">
+    <a href="<?= getURI('/acteurs/add') ?>" class="add">
         Ajouter
     </a>
 </div>

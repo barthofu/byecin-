@@ -10,7 +10,7 @@ class Auth extends Controller {
     public function register () {
 
         if (isLoggedIn()) {
-            header('location: ' . str_replace('/auth/register', '/', getCurrentURL()));
+            header('location: ' . getURL('/'));
             exit();
         }
 
@@ -56,7 +56,7 @@ class Auth extends Controller {
                 $user = new $User([ 'username' => $data['username'], 'password' => $data['password'] ]);
                 
                 if ($user->register()) {
-                    header('location: ' . str_replace('/register', '/login', getCurrentURL()));
+                    header('location: ' . getURL('/auth/login'));
                     exit();
                 }
                 else $data['usernameError'] = 'Ce nom d\'utilisateur est déjà prit';
@@ -72,7 +72,7 @@ class Auth extends Controller {
     public function login () {
 
         if (isLoggedIn()) {
-            header('location: ' . str_replace('/auth/login', '/', getCurrentURL()));
+            header('location: ' . getURL('/'));
             exit();
         }
 
@@ -114,7 +114,7 @@ class Auth extends Controller {
         unset($_SESSION['userId']);
         unset($_SESSION['username']);
 
-        header('location: ' . str_replace('/auth/logout', '/', getCurrentURL()));
+        header('location: ' . getURL('/auth/login'));
     }
 
     // fonctions utils
@@ -124,7 +124,7 @@ class Auth extends Controller {
         $_SESSION['userId'] = $loggedUser->getId();
         $_SESSION['username'] = $loggedUser->getUsername();
 
-        header('location: ' . str_replace('/auth/login', '/', getCurrentURL()));
+        header('location: ' . getURL('/'));
     }
 
 }

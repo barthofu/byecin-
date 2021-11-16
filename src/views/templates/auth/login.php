@@ -15,6 +15,6 @@
 
         <button id="submit" type="submit" value="submit">Valider</button>
 
-        <p class="options">Pas encore inscrit ? <a href="<?= str_replace('/login', '/register', getCurrentURL()) ?>">Créer un compte !</a></p>
+        <p class="options">Pas encore inscrit ? <a href="<?= getURL('/auth/register') ?>">Créer un compte !</a></p>
     </form>
 </div>

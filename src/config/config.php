@@ -1,5 +1,7 @@
 <?php
 
+const APP_NAME = 'byecine';
+
 // auth
 const NAME_VALIDATION = "/^[a-zA-Z0-9]*$/";
 
