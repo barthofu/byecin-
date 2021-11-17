@@ -39,3 +39,13 @@ bycine
         ├─ layout # éléments redondants aux pages (ex: header et footer)
         └─ templates # contenu des pages
 ```
+
+## Todo
+
+[] système de votes
+[] ajout / suppression de films
+[] form du film :
+  [] attribuer acteur
+  [] upload de fichier
+[] ajout de roles aux users
+[] page spéciale pour la modification de film

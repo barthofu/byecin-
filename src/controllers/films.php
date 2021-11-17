@@ -5,12 +5,7 @@ class Films extends Controller {
     public function index () {
 
         $Film = $this->model('Film');
-        $Casting = $this->model('Casting');
-
         $films = $Film::getAll();
-        $castings = $Casting::getAll();
-
-        for ($i = 0; $i < count($films); $i++) $films[$i]->setActeurs($castings);
 
         $this->view('films/index', [ 'films' => $films ]);
     }
@@ -37,15 +32,13 @@ class Films extends Controller {
         $film = $Film::getById($params['id']);
 
         if ($film) {
-
             $film->setActeurs($castings);
             $data['film'] = $film;
-        } 
+        }
         else
             $data['notFoundError'] = true;
 
         $this->view('films/get', $data);
-        
     }
 
     public function add () {

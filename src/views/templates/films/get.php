@@ -1,5 +1,8 @@
-<div>
-    <?php
-    var_dump($data['notFoundError']); 
-    ?>
-</div>
+<?php if (!$data['notFoundError']) { ?>
+
+    
+
+<?php } else { ?>
+
+
+<?php } ?>

@@ -5,12 +5,7 @@ class Acteurs extends Controller {
     public function index () {
 
         $Acteur = $this->model('Acteur');
-        $Casting = $this->model('Casting');
-
         $acteurs = $Acteur::getAll();
-        $castings = $Casting::getAll();
-
-        for ($i = 0; $i < count($acteurs); $i++) $acteurs[$i]->setFilms($castings);
 
         $this->view('acteurs/index', [ 'acteurs' => $acteurs ]);
     }

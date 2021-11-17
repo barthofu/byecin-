@@ -24,7 +24,8 @@ class Router {
         if(!method_exists($this->controller, $this->method)) $this->method = $this->defaultMethod;
 
         //enfin, on execute le tout
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        $method = $this->method;
+        $this->controller->$method($this->params);
     }
 
     private function parseUrl () {
