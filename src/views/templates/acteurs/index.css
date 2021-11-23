@@ -1,0 +1,64 @@
+.acteurs { margin-top: -10vh; }
+
+.acteur {
+
+    margin: 2rem;
+    padding: 1rem;
+    width: 20vw;
+
+    background-color: #4a3e65;
+    border-radius: 15px;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+
+    font-family: "Titillium Web", sans-serif;
+    font-size: clamp(5px, 1.5vh, 100px);
+    color: aliceblue;
+
+    transition: 0.2s linear;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    transform: scale(1);
+}
+
+.acteur:hover {
+    transform: scale(1.05);
+}
+
+.nom {
+
+    text-align: left;
+    font-size: clamp(15px, 2.5vh, 150px);
+    color: greenyellow;
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+}
+
+.add {
+
+    position: fixed;
+    bottom: 2rem;
+    right: 4rem;
+
+    padding: 0.8rem;
+    background-color: #4a3e65;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 15px;
+
+    justify-self: flex-end;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: bolder;
+    font-size: clamp(15px, 3vh, 200px);
+    color: aliceblue;
+
+    transition: 0.2s linear;
+}
+
+.add:hover {
+
+    background-color: #76ce76;
+
+}
