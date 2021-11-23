@@ -6,17 +6,14 @@
     </div>
 
     <div class="cardsContainer">
-    <?php 
-        foreach ($data['randKeys'] as $key) {
-            $film = $data['films'][$key];
-            echo '
-                <div class="card">
-                    <img alt="affiche" src="'. $film->getImage() .'">
-                    <h3>'. $film->getNom() .'</h3>
-                </div>
-            ';
-        }
-    ?>
+    <?php foreach ($data['randKeys'] as $key) { $film = $data['films'][$key]; ?>
+
+        <div class="card" onclick="document.location.href='<?= getURI('/films/get?id='.$film->getId()) ?>'">
+            <img alt="affiche" src="<?= $film->getImage() ?>">
+            <h3><?= $film->getNom() ?></h3>
+        </div>
+        
+    <?php } ?>
     </div>
 
 </div>
