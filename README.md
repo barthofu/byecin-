@@ -50,3 +50,4 @@ bycine
 [] ajout de roles aux users
 [] page spéciale pour la modification de film
 [] bouton pour se login
+[] mettre en forme les forms (login/register/add film et acteur)
