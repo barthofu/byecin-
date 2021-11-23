@@ -113,6 +113,7 @@ class Auth extends Controller {
 
         unset($_SESSION['userId']);
         unset($_SESSION['username']);
+        unset($_SESSION['votes']);
 
         header('location: ' . getURL('/auth/login'));
     }
@@ -123,6 +124,7 @@ class Auth extends Controller {
 
         $_SESSION['userId'] = $loggedUser->getId();
         $_SESSION['username'] = $loggedUser->getUsername();
+        $_SESSION['votes'] = [];
 
         header('location: ' . getURL('/'));
     }

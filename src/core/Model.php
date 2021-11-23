@@ -18,14 +18,16 @@ class Model {
 
     public function getAttributes () {
 
-        $attributes = get_object_vars($this);
-        $filteredAttributes = array_filter(
-            $attributes,
-            fn ($attributeKey) => !str_starts_with($attributeKey, '_'),
-            ARRAY_FILTER_USE_KEY
-        );
+        return get_object_vars($this);
 
-        return $filteredAttributes;
+        // $attributes = get_object_vars($this);
+        // $filteredAttributes = array_filter(
+        //     $attributes,
+        //     fn ($attributeKey) => !str_starts_with($attributeKey, '_'),
+        //     ARRAY_FILTER_USE_KEY
+        // );
+
+        // return $filteredAttributes;
     }
 
     // fonctions DAO
@@ -46,11 +48,11 @@ class Model {
         );
     }
 
-    public function delete ($id) {
+    public function delete () {
 
         static::$_db->execQuery(
             'DELETE FROM '. static::class .' WHERE id = :id',
-            array( 'id' => $id )
+            [ 'id' => $this->id ]
         );
     }
 

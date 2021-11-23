@@ -1,0 +1,129 @@
+.films { margin-top: 60vh; }
+
+.film {
+
+    margin: 2rem;
+    padding: 1rem;
+    width: 25vw;
+
+    background-color: #4a3e65;
+    border-radius: 15px;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+
+    font-family: "Titillium Web", sans-serif;
+    font-size: clamp(5px, 1.5vh, 100px);
+    color: aliceblue;
+
+    transition: 0.2s linear;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    transform: scale(1);
+}
+
+.film:hover {
+    transform: scale(1.05);
+}
+
+.filmNom {
+
+    text-align: left;
+    font-size: clamp(15px, 2.5vh, 150px);
+    color: greenyellow;
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+}
+
+.filmImage {
+
+    border-radius: 15px;
+    height: 20vh;
+    margin-right: 1rem;
+}
+
+
+
+
+details summary {
+    list-style: inside none;
+}
+
+.collapse {
+    margin-top: 0.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.25);
+    background-color: #5c4e7a;
+    transition: box-shadow 250ms;
+    will-change: box-shadow;
+    overflow: hidden;
+
+}
+
+.collapse:hover {
+    box-shadow: 0.1rem 0.1rem 1.8rem rgba(0, 0, 0, 0.25);
+}
+
+.collapse .collapseTitle {
+    font-family: "Titillium Web", sans-serif;
+    font-size: clamp(10px, 2vh, 200px);
+    color: aliceblue;
+    position: relative;
+    padding: .5rem 1rem;
+    font-weight: 700;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+.collapse .collapseTitle::after {
+    content: "↓";
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.collapse[open] .collapseTitle::after {
+    content: "⬆";
+}
+
+.collapse .collapsableElements {
+    color: black;
+    margin: 0;
+    font-size: 1.4rem;
+}
+.collapse .collapsableElements:not(:first-of-type) {
+    padding-top: 0;
+}
+
+.collapsableElement {
+
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin: 0.5rem;
+}
+
+.film:hover .deleteButton {
+    display: block;
+}
+
+.deleteButton {
+
+    z-index: 10;
+
+    display: none;
+    position: absolute;
+
+    margin: -7.5% 0 0 -7.5%;
+    width: 50px;
+    height: 50px;
+
+}
+
+.deleteButton svg {
+    fill: rgb(190, 57, 57);  
+}

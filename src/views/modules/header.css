@@ -1,0 +1,50 @@
+nav {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+    /*background: rgb(47, 32, 80);*/
+}
+
+nav .left {
+
+    display: flex;
+    align-items: center;
+}
+
+nav .left h1 {
+
+    padding: 0 1em;
+    font-size: 2rem;
+    color: #c2bbe7;
+    font-family: "Titillium Web", serif;
+    transition: 0.3s ease-in-out;
+}
+
+nav .left h1:hover { color: white; }
+
+nav .right {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .right a {
+
+    margin: 0 2rem;
+    color: #c2bbe7;
+    font-family: "Titillium Web", serif;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+    font-size: clamp(25px, 2vh, 200px);
+
+}
+
+nav .right a:hover { color: white; }

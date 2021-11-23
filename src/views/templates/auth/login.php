@@ -1,5 +1,3 @@
-
-
 <div class="login">
     <h2>Connecte toi</h2>
 

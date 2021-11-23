@@ -104,4 +104,72 @@ class Films extends Controller {
 
         $this->view('films/add', $data);
     }
+
+    public function delete ($params) {
+
+        if (!isset($params['id'])) {
+            header('location: ' . getURL('/'));
+            exit();
+        } else {
+
+            $Film = $this->model('Film');
+            $film = $Film::getById($params['id']);
+
+            if (!$film) { // film inexistant
+
+                // on redirige vers la home page
+                header('location: ' . getURL('/'));
+                exit();
+
+            } else { // film existant
+
+                $film->delete();
+            }
+
+            header('location: ' . getURL('/films'));
+        }
+    }
+
+    public function vote ($params) {
+
+        if (!isset($params['id'])) {
+            header('location: ' . getURL('/'));
+            exit();
+        } else {
+
+            $Film = $this->model('Film');
+            $film = $Film::getById($params['id']);
+
+            if (!$film) { // film inexistant
+
+                // on redirige vers la home page
+                header('location: ' . getURL('/'));
+                exit();
+
+            } else { // film existant
+
+                if (!in_array($params['id'], $_SESSION['votes'])) { // l'utilisateur n'a pas encore voté pour le film -> on rajoute le vote
+    
+                    // ajout du vote dans la base de données
+                    $film->setNbVotants($film->getNbVotants() + 1);
+                    $film->saveOrUpdate();
+                    // ajout du vote dans la variable de session
+                    array_push($_SESSION['votes'], $params['id']);
+
+                } else { // l'utilisateur a déjà voté pour le film -> on enlève le vote
+
+                    // suppression du vote dans la base de données
+                    $film->setNbVotants($film->getNbVotants() - 1);
+                    $film->saveOrUpdate();
+                    // suppression du vote dans la variable de session
+                    $_SESSION['votes'] = array_diff($_SESSION['votes'], [$params['id']]);
+                }
+
+            }
+
+            header('location: ' . getURL('/films/get?id='.$params['id']));
+            exit();
+        }
+
+    }
 }

@@ -12,9 +12,7 @@ class Controller {
 
         $data['view'] = $view;
 
-        //including the header, the view and the footer    
-        require_once 'src/views/modules/header.php';
-        require_once 'src/views/templates/' . $view . '.php';
-        require_once 'src/views/modules/footer.php';
+        // on inclut le layout 
+        require_once 'src/views/layouts/default.php';
     }
 }

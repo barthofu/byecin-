@@ -45,3 +45,12 @@ function formatParams ($params) {
 
     return $formatedParams;
 }
+
+function getViewCSSPathPrefix ($view) {
+
+    $validator = str_contains(
+        $_SERVER['REQUEST_URI'],
+        explode('/', $view)[0] . '/'
+    );
+    return $validator ? '../' : '' ;
+}

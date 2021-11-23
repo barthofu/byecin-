@@ -1,0 +1,41 @@
+.home {
+
+    font-family: 'Titillium Web', sans-serif;
+    font-size: clamp(15px, 3vh, 200px);
+    color: whitesmoke;
+
+}
+
+.title {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 3rem;    
+
+}
+
+.cardsContainer {
+
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+
+    margin: 1rem;
+}
+
+.card img {
+
+    border-radius: 15px;
+    height: 44vh;
+}
+
+.card h3 {
+
+    text-align: center;
+    font-size: clamp(15px, 2.6vh, 200px);
+}

@@ -2,12 +2,12 @@
 
 class Film extends Model {
 
-    private int $id;
-	private string $nom;
-	private int $annee;
-	private float $score;
-	private int $nbVotants;
-	private string $image;
+    protected int $id;
+	protected string $nom;
+	protected int $annee;
+	protected float $score;
+	protected int $nbVotants;
+	protected string $image;
 
     private array $_acteurs = [];
 

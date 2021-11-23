@@ -15,7 +15,7 @@ class DB extends PDO {
 
         $q = $this->prepare($query);
         $q->execute($args);
-
+        
         return $q;
     }
 
