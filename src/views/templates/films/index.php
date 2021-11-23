@@ -11,10 +11,13 @@
                 <img alt="affiche" class="filmImage" src=" <?= $film->getImage() ?> ">
                 <div class="filmInfos">
                     <div class="filmNom"><?= $film->getNom() ?></div>
-                    <strong>Année de sortie :</strong><?= $film->getAnnee() ?><br>
-                    <strong>Score :</strong><?= $film->getScore() ?><br>
-                    <strong>Nombre de votants :</strong><?= $film->getNbVotants() ?><br>
-                    <details class="collapse">
+                    <div class="subInfos">
+                        <strong>Année de sortie :</strong><?= $film->getAnnee() ?><br>
+                        <strong>Score :</strong><?= $film->getScore() ?><br>
+                        <strong>Nombre de votants :</strong><?= $film->getNbVotants() ?><br>
+                    </div>
+                   
+                    <!-- <details class="collapse">
                         <summary class="collapseTitle">Acteurs</summary>
                         <ul class="collapsableElements">
                         <?php implode('',  array_map(static function($acteur) { ?>
@@ -25,7 +28,7 @@
 
                         <?php }, $film->getActeurs())) ?>
                         </ul>
-                    </details>
+                    </details> -->
                 </div>
                 
             </a>
