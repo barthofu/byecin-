@@ -42,10 +42,11 @@ bycine
 
 ## Todo
 
-[] système de votes
-[] ajout / suppression de films
+[x] système de votes
+[x] ajout / suppression de films
 [] form du film :
   [] attribuer acteur
   [] upload de fichier
 [] ajout de roles aux users
 [] page spéciale pour la modification de film
+[] bouton pour se login
