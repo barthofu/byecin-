@@ -51,3 +51,7 @@ bycine
 [] page spéciale pour la modification de film
 [] bouton pour se login
 [] mettre en forme les forms (login/register/add film et acteur)
+
+### Optionnel 
+
+[] Rendre la liste des acteurs/films sur les pages /get cliquables et redirigeant vers sa page
