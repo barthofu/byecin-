@@ -107,23 +107,28 @@ details summary {
     margin: 0.5rem;
 }
 
-.film:hover .deleteButton {
-    display: block;
+.add {
+
+    position: fixed;
+    bottom: 2rem;
+    right: 4rem;
+
+    padding: 0.8rem;
+    background-color: #4a3e65;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 15px;
+
+    justify-self: flex-end;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: bolder;
+    font-size: clamp(15px, 3vh, 200px);
+    color: aliceblue;
+
+    transition: 0.2s linear;
 }
 
-.deleteButton {
+.add:hover {
 
-    z-index: 10;
+    background-color: #76ce76;
 
-    display: none;
-    position: absolute;
-
-    margin: -7.5% 0 0 -7.5%;
-    width: 50px;
-    height: 50px;
-
-}
-
-.deleteButton svg {
-    fill: rgb(190, 57, 57);  
 }
