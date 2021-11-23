@@ -19,12 +19,6 @@
                     </span></div>
                 </div>
 
-                <ul class="acteurs">
-
-                
-
-                </ul>
-
             </div>
 
         </div>
