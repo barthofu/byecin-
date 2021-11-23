@@ -42,16 +42,16 @@ bycine
 
 ## Todo
 
-[x] système de votes
-[x] ajout / suppression de films
-[] form du film :
-  [] attribuer acteur
-  [] upload de fichier
-[] ajout de roles aux users
-[] page spéciale pour la modification de film
-[] bouton pour se login
-[] mettre en forme les forms (login/register/add film et acteur)
+- [x] système de votes
+- [x] ajout / suppression de films
+- [ ] form du film :
+    - [ ] attribuer acteur
+    - [ ] upload de fichier
+- [ ] ajout de roles aux users
+- [ ] page spéciale pour la modification de film
+- [ ] bouton pour se login
+- [ ] mettre en forme les forms (login/register/add film et acteur)
 
 ### Optionnel 
 
-[] Rendre la liste des acteurs/films sur les pages /get cliquables et redirigeant vers sa page
+- [ ] Rendre la liste des acteurs/films sur les pages /get cliquables et redirigeant vers sa page
