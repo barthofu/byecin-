@@ -1,0 +1,59 @@
+form {
+
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+
+    margin: 1rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.labelName {
+
+    font-size: 1rem;
+    color: #e2e0ec;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+input,
+.select2-container--default .select2-selection--multiple {
+
+    background: transparent !important;
+    border: 2px solid #3f315c !important;
+    border-radius: 10px !important;
+    padding: 0.5rem !important;
+
+    outline: none !important;
+
+    color: #e2e0ec !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.select2-selection__choice {
+    background-color: none !important;
+    border: none !important;   
+}
+
+.select2-selection__choice__display {
+
+    color: #e2e0ec !important;
+    background: #3f315c !important;
+    padding: 0 0.5rem !important;
+}
+
+
+
+.select2-selection__choice__remove {
+
+    background-color: #3f315c !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}

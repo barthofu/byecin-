@@ -2,9 +2,9 @@
 
 class Acteur extends Model {
 
-    private int $id;
-	private string $nom;
-	private string $prenom;
+    protected int $id;
+	protected string $nom;
+	protected string $prenom;
 
     private array $_films = [];
 

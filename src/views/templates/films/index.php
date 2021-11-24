@@ -8,7 +8,7 @@
 
             <a class="film" href="<?= getURI('/films/get?id='.$film->getId()) ?>">
 
-                <img alt="affiche" class="filmImage" src=" <?= $film->getImage() ?> ">
+                <img alt="affiche" class="filmImage" src=" <?= UPLOAD_DIR . $film->getImage() ?> ">
                 <div class="filmInfos">
                     <div class="filmNom"><?= $film->getNom() ?></div>
                     <div class="subInfos">

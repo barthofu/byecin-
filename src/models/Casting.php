@@ -2,9 +2,9 @@
 
 class Casting extends Model {
 
-    private int $id;
-	private int $filmId;
-	private int $acteurId;
+    protected int $id;
+	protected int $filmId;
+	protected int $acteurId;
 
 	function __construct ($data) {
 

@@ -48,6 +48,9 @@ class Films extends Controller {
             exit();
         }
 
+        $Acteur = $this->model('Acteur');
+        $acteurs = $Acteur::getAll();
+
         $data = [
             // valeurs par défaut
             'nom' => '',
@@ -55,11 +58,16 @@ class Films extends Controller {
             'score' => '',
             'nbVotants' => '',
             'image' => '',
+            'acteurs' => [],
             // erreurs
             'anneeError' => '',
             'scoreError' => '',
+            'imageError' => '',
             // succès
-            'successMessage' => ''
+            'successMessage' => '',
+
+            // autres
+            'allActeurs' => $acteurs
         ];
 
         // vérifie si le form d'inscription a été submit ou non
@@ -73,7 +81,10 @@ class Films extends Controller {
             $data['annee'] = trim($_POST['annee']);
             $data['score'] = trim($_POST['score']);
             $data['nbVotants'] = trim($_POST['nbVotants']);
-            $data['image'] = trim($_POST['image']);
+            $data['image'] = basename($_FILES['image']['tmp_name']);
+            $data['acteurs'] = $_POST['acteurs'];
+
+            $imagePath = UPLOAD_DIR . $data['image'];
 
             // valide les données 
                 // annee
@@ -84,19 +95,39 @@ class Films extends Controller {
             // vérifie que toutes les errors soient vides 
             if (empty($data['anneeError']) && empty($data['scoreError'])) {
 
-                // création du film
-                $Film = $this->model('Film');
-                $film = new $Film([
-                    'nom' => $data['nom'],
-                    'annee' => $data['annee'],
-                    'score' => $data['score'],
-                    'nbVotants' => $data['nbVotants'],
-                    'image' => $data['image'],
-                ]);
+                // on déplace l'image vers le dossier d'assets
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
 
-                if ($film->saveOrUpdate()) {
-                    $data['successMessage'] = $data['nom'] . ' a bien été ajouté/modifié !';
-                };
+                    // création du film
+                    $Film = $this->model('Film');
+                    $film = new $Film([
+                        'nom' => $data['nom'],
+                        'annee' => $data['annee'],
+                        'score' => $data['score'],
+                        'nbVotants' => $data['nbVotants'],
+                        'image' => $data['image'],
+                    ]);                    
+
+
+                    if ($film->saveOrUpdate()) {
+
+                        $filmId = Model::$_db->lastInsertId();
+                        $Casting = $this->model('Casting');
+
+                        foreach ($data['acteurs'] as $key => $acteurId) {
+
+                            $casting = new $Casting([
+                                'filmId' => $filmId,
+                                'acteurId' => $acteurId
+                            ]);
+                            $casting->saveOrUpdate();
+                        }
+
+                        $data['successMessage'] = $data['nom'] . ' a bien été ajouté/modifié !';
+                    };
+                } else {
+                    $data['imageError'] = 'Une erreur est survenue avec l\'image';
+                }
                 
             }
 

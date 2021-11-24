@@ -6,7 +6,7 @@
 
         <div class="filmContainer">
 
-            <img alt="affiche" class="filmImage" src=" <?= $film->getImage() ?> ">
+            <img alt="affiche" class="filmImage" src=" <?= '../' . UPLOAD_DIR . $film->getImage() ?> ">
             <div class="filmInfos">
                 <div class="filmNom"><?= $film->getNom() ?></div>
 
@@ -25,11 +25,15 @@
 
         <div class="buttons">
             
-            <?php if (isLoggedIn()) { ?> <div onclick="document.location.href='<?= getURI('/films/delete?id='.$film->getId()) ?>'" class="delete">Supprimer</div> <?php } ?>
+            <?php if (isLoggedIn()) { ?> 
+                
+                <div onclick="document.location.href='<?= getURI('/films/delete?id='.$film->getId()) ?>'" class="delete">Supprimer</div>
 
-            <a href=<?= getURI('/films/vote?id='.$film->getId()) ?> >
-                <i class="vote <?= in_array($film->getId(), $_SESSION['votes']) ? 'fas' : 'far' ?> fa-thumbs-up"></i>
-            </a>
+                <a href=<?= getURI('/films/vote?id='.$film->getId()) ?> >
+                    <i class="vote <?= isset($_SESSION['votes']) && in_array($film->getId(), $_SESSION['votes']) ? 'fas' : 'far' ?> fa-thumbs-up"></i>
+                </a>
+
+            <?php } ?>
 
         </div>
 
