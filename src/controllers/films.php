@@ -82,8 +82,7 @@ class Films extends Controller {
             $data['score'] = trim($_POST['score']);
             $data['nbVotants'] = trim($_POST['nbVotants']);
             $data['image'] = basename($_FILES['image']['tmp_name']);
-            $data['acteurs'] = $_POST['acteurs'];
-
+            if (isset($_POST['acteurs'])) $data['acteurs'] = $_POST['acteurs'];
             $imagePath = UPLOAD_DIR . $data['image'];
 
             // valide les données 
@@ -155,6 +154,14 @@ class Films extends Controller {
             } else { // film existant
 
                 $film->delete();
+
+                //on supprime aussi les castings liés au film
+                $Casting = $this->model('Casting');
+                $castings = $Casting::getByCondition('filmId = ' . $film->getId());
+
+                foreach ($castings as $key => $casting) {
+                    $casting->delete();
+                }
             }
 
             header('location: ' . getURL('/films'));

@@ -44,14 +44,19 @@ bycine
 
 - [x] système de votes
 - [x] ajout / suppression de films
-- [ ] form du film :
-    - [ ] attribuer acteur
-    - [ ] upload de fichier
+- [x] form du film :
+    - [x] attribuer acteur
+    - [x] upload de fichier
+- [ ] form acteur :
+    - [ ] attribuer films
 - [ ] ajout de roles aux users
 - [ ] page spéciale pour la modification de film
 - [ ] bouton pour se login
 - [ ] mettre en forme les forms (login/register/add film et acteur)
+- [ ] notif de succès d'ajout (c/c celle de l'ancien projet)
+- [ ] styliser le bouton d'envoie du formulaire d'ajout
 
 ### Optionnel 
 
 - [ ] Rendre la liste des acteurs/films sur les pages /get cliquables et redirigeant vers sa page
+- [ ] Interface de modification des films

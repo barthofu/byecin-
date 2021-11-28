@@ -90,5 +90,23 @@ class Model {
         else return false;
     } 
 
+    public static function getByCondition ($condition) {
+
+        $className = static::class;
+    
+        $q = static::$_db->execQuery(
+            'SELECT * FROM '. $className .' WHERE ' . $condition,
+            []
+        );
+
+        $queryResults = $q->fetchAll();
+        $results = [];
+
+        foreach ($queryResults as $key => $queryResult) 
+            array_push($results, new $className($queryResult));
+        
+        return $results;
+    } 
+
 
 }

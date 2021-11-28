@@ -12,9 +12,9 @@
                 <div class="filmInfos">
                     <div class="filmNom"><?= $film->getNom() ?></div>
                     <div class="subInfos">
-                        <strong>Année de sortie :</strong><?= $film->getAnnee() ?><br>
-                        <strong>Score :</strong><?= $film->getScore() ?><br>
-                        <strong>Nombre de votants :</strong><?= $film->getNbVotants() ?><br>
+                        <strong>Année de sortie : </strong><?= $film->getAnnee() ?><br>
+                        <strong>Score : </strong><?= $film->getScore() ?><br>
+                        <strong>Nombre de votants : </strong><?= $film->getNbVotants() ?><br>
                     </div>
                    
                     <!-- <details class="collapse">

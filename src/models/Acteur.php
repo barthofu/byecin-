@@ -36,6 +36,7 @@ class Acteur extends Model {
         foreach ($castings as $key => $casting) {
             if ($casting->getActeurId() == $this->id) array_push($this->_films, $model::getById($casting->getFilmId()));
         }
+
     }
 
     public function getId() { return $this->id; }

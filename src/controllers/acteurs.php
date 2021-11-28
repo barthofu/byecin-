@@ -52,12 +52,18 @@ class Acteurs extends Controller {
             exit();
         }
 
+        $Film = $this->model('Film');
+        $films = $Film::getAll();
+
         $data = [
             // valeurs par défaut
             'nom' => '',
             'prenom' => '',
             // succès
-            'successMessage' => ''
+            'successMessage' => '',
+            
+            // autres
+            'allFilms' => $films
         ];
 
         // vérifie si le form d'inscription a été submit ou non
