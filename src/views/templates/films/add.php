@@ -7,7 +7,7 @@
 
     <label for="annee">
         <div class="labelName">Année de sortie</div>
-        <input type="number" name="annee" id="annee" placeholder="">
+        <input type="number" name="annee" id="annee" placeholder="" required>
     </label>
     <span class="invalidFeedback">
         <?= $data['anneeError'] ?>
@@ -15,7 +15,7 @@
 
     <label for="score">
         <div class="labelName">Score</div>
-        <input type="number" step="0.1" name="score" id="score" placeholder="">
+        <input type="number" step="0.1" name="score" id="score" placeholder="" required>
     </label>
     <span class="invalidFeedback">
         <?= $data['scoreError'] ?>
@@ -23,12 +23,12 @@
 
     <label for="nbVotants">
         <div class="labelName">Nombre de votants</div>
-        <input type="number" name="nbVotants" id="nbVotants" placeholder="">
+        <input type="number" name="nbVotants" id="nbVotants" placeholder="" required>
     </label>
 
     <label for="image">
-        <div class="labelName">Affiche<div class="labelName">
-        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+        <div class="labelName">Affiche</div>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
     </label>
 
     <label for="acteurs">
@@ -44,9 +44,10 @@
     <br>
     <button type="submit">Envoyer</button>
 
-    <span class="sucessMessage">
+    <br>
+    <div class="successMessage">
         <?= $data['successMessage'] ?>
-    </span>
+    </div>
 
 </form>
 

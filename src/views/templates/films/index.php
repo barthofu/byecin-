@@ -1,35 +1,15 @@
-<div class="films">
+<div class="filmsContainer">
 
-    <div class="filmsContainer">
+    <div class="films">
 
     
 
-        <?php foreach ($data['films'] as $key => $film) { ?>
+        <?php foreach (array_merge($data['films'], $data['films'], $data['films']) as $key => $film) { ?>
 
             <a class="film" href="<?= getURI('/films/get?id='.$film->getId()) ?>">
 
                 <img alt="affiche" class="filmImage" src=" <?= UPLOAD_DIR . $film->getImage() ?> ">
-                <div class="filmInfos">
-                    <div class="filmNom"><?= $film->getNom() ?></div>
-                    <div class="subInfos">
-                        <strong>Année de sortie : </strong><?= $film->getAnnee() ?><br>
-                        <strong>Score : </strong><?= $film->getScore() ?><br>
-                        <strong>Nombre de votants : </strong><?= $film->getNbVotants() ?><br>
-                    </div>
-                   
-                    <!-- <details class="collapse">
-                        <summary class="collapseTitle">Acteurs</summary>
-                        <ul class="collapsableElements">
-                        <?php implode('',  array_map(static function($acteur) { ?>
-
-                            <li class="collapsableElement">
-                                <?= $acteur->getPrenom() ?>  <?php $acteur->getNom()?>
-                            </li>'
-
-                        <?php }, $film->getActeurs())) ?>
-                        </ul>
-                    </details> -->
-                </div>
+                <div class="filmTitle"><?= $film->getNom() ?><br><span class="filmDate">(<?= $film->getAnnee() ?>)</span></div>
                 
             </a>
 
@@ -40,7 +20,7 @@
     <?php if (isLoggedIn()) { ?>
 
         <a href="<?= getURI('/films/add') ?>" class="add">
-            Ajouter
+            <i class="fas fa-plus"></i>
         </a>
 
     <?php } ?>

@@ -1,134 +1,83 @@
-.films { margin-top: 60vh; }
+.filmsContainer {
+
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+
+}
+
+.films {
+
+    margin-top: 15vh;
+    width: 83%;
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .film {
 
-    margin: 2rem;
-    padding: 1rem;
-    width: 25vw;
-
-    background-color: #4a3e65;
-    border-radius: 15px;
-    box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
-
-    font-family: "Titillium Web", sans-serif;
-    font-size: clamp(5px, 1.5vh, 100px);
-    color: aliceblue;
-
-    transition: 0.2s linear;
+    margin: 2rem 1rem;
+    width: 10vw;
+    height: 30vh;
 
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    transform: scale(1);
+    transition: 0.3s linear;
 }
 
-.film:hover {
-    transform: scale(1.05);
-}
+.film:hover            { transform: scale(1.04) }
 
-.filmNom {
+.film:hover .filmImage { box-shadow: 0 0 10px 10px rgba(0,0,0, 0.2) }
 
-    text-align: left;
-    font-size: clamp(15px, 2.5vh, 150px);
-    color: greenyellow;
-    font-weight: bolder;
-    margin-bottom: 0.5rem;
-}
+.film:hover .filmTitle { color: var(--text-special-color) }
 
 .filmImage {
 
-    border-radius: 15px;
-    height: 20vh;
-    margin-right: 1rem;
-}
-
-
-
-
-details summary {
-    list-style: inside none;
-}
-
-.collapse {
-    margin-top: 0.5rem;
-    border-radius: 0.8rem;
-    box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.25);
-    background-color: #5c4e7a;
-    transition: box-shadow 250ms;
-    will-change: box-shadow;
-    overflow: hidden;
-
-}
-
-.collapse:hover {
-    box-shadow: 0.1rem 0.1rem 1.8rem rgba(0, 0, 0, 0.25);
-}
-
-.collapse .collapseTitle {
-    font-family: "Titillium Web", sans-serif;
-    font-size: clamp(10px, 2vh, 200px);
-    color: aliceblue;
-    position: relative;
-    padding: .5rem 1rem;
-    font-weight: 700;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: pointer;
-}
-.collapse .collapseTitle::after {
-    content: "↓";
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.collapse[open] .collapseTitle::after {
-    content: "⬆";
-}
-
-.collapse .collapsableElements {
-    color: black;
-    margin: 0;
-    font-size: 1.4rem;
-}
-.collapse .collapsableElements:not(:first-of-type) {
-    padding-top: 0;
-}
-
-.collapsableElement {
-
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    margin: 0.5rem;
-}
-
-.add {
-
-    position: fixed;
-    bottom: 2rem;
-    right: 4rem;
-
-    padding: 0.8rem;
-    background-color: #4a3e65;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 15px;
-
-    justify-self: flex-end;
-    font-family: "Titillium Web", sans-serif;
-    font-weight: bolder;
-    font-size: clamp(15px, 3vh, 200px);
-    color: aliceblue;
+    height: 25vh;
 
     transition: 0.2s linear;
 }
 
-.add:hover {
+.filmTitle {
 
-    background-color: #76ce76;
+    text-align: center;
+    margin-top: 10%;
 
+    color: var(--text-primary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+
+    transition: 0.2s linear;
+}
+
+.filmDate {
+    color: var(--text-secondary-color);
+}
+
+/* BOUTON AJOUTER */
+
+.add {
+    position: fixed;
+    bottom: 6%;
+    right: 3%;
+}
+
+.add i {
+
+    font-size: 3rem;
+    color: var(--text-primary-color);
+
+    transition: 0.2s linear;
+}
+
+.add:hover i {
+    color: var(--text-special-color);
+    transform: scale(1.2);
 }

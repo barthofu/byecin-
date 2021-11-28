@@ -1,5 +1,13 @@
 :root {
 
+    --text-primary-color: #dddbeb;
+    --text-secondary-color: #b4b4b4;
+    --text-special-color: greenyellow;
+    --text-error-color: rgb(143, 14, 14);
+
+
     --primary-color: #1f2326;
 
+    --background-primary-color: rgb(38, 37, 39);
+    --background-secondary-color: rgb(57, 56, 58);
 }

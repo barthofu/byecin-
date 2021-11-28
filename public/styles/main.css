@@ -14,17 +14,17 @@ body {
     align-items: center;
     justify-content: center;
 
-    background-color: rgb(41, 30, 64);
+    background-color: var(--background-primary-color);
 }
 
 ::-webkit-scrollbar {
-    width: 1.6rem;
+    width: 0.7rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    border: 0.4rem solid #0000;
+    border: 0.2rem solid #0000;
     border-radius: 99em;
-    background-color: #c3c2c4;
+    background-color: #575757;
     background-clip: content-box;
 }
 

@@ -22,7 +22,7 @@ nav .left h1 {
 
     padding: 0 1em;
     font-size: 2rem;
-    color: #c2bbe7;
+    color: var(--text-primary-color);
     font-family: "Titillium Web", serif;
     transition: 0.3s ease-in-out;
 }
@@ -39,7 +39,7 @@ nav .right {
 nav .right a {
 
     margin: 0 2rem;
-    color: #c2bbe7;
+    color: var(--text-primary-color);
     font-family: "Titillium Web", serif;
     font-weight: bold;
     transition: color 0.3s ease-in-out;

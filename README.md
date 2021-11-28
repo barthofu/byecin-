@@ -55,6 +55,7 @@ bycine
 - [ ] mettre en forme les forms (login/register/add film et acteur)
 - [ ] notif de succès d'ajout (c/c celle de l'ancien projet)
 - [ ] styliser le bouton d'envoie du formulaire d'ajout
+- [ ] suppression de l'affiche dans le dossier lorsqu'on supprime un film
 
 ### Optionnel 
 
