@@ -8,7 +8,7 @@
 
             <a class="film" href="<?= getURI('/films/get?id='.$film->getId()) ?>">
 
-                <img alt="affiche" class="filmImage" src=" <?= UPLOAD_DIR . $film->getImage() ?> ">
+                <img alt="affiche" class="filmImage" src=" <?= FILMS_UPLOAD_DIR . $film->getImage() ?> ">
                 <div class="filmTitle"><?= $film->getNom() ?><br><span class="filmDate">(<?= $film->getAnnee() ?>)</span></div>
                 
             </a>
@@ -17,7 +17,7 @@
 
     </div>
 
-    <?php if (isLoggedIn()) { ?>
+    <?php if (isAdmin()) { ?>
 
         <a href="<?= getURI('/films/add') ?>" class="add">
             <i class="fas fa-plus"></i>

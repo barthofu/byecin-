@@ -48,3 +48,33 @@ nav .right a {
 }
 
 nav .right a:hover { color: white; }
+
+nav .login {
+
+    background-color: var(--element-primary-color);
+    padding: .5rem 1rem;
+    border-radius: 10px;
+}
+
+nav .userIcon {
+
+    height: 40px;
+    width: 40px;
+
+    border-radius: 100%;
+}
+
+nav .logout {
+
+    width: 35px;
+    height: 35px;
+    fill: var(--text-error-color);
+    margin-right: 1vw;
+    margin-bottom: 0.8vh;
+    transition: 0.2s linear;
+}
+
+.logout:hover {
+
+    fill: white;
+}

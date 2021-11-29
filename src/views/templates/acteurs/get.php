@@ -16,7 +16,7 @@
 
         <div class="buttons">
             
-            <?php if (isLoggedIn()) { ?> <div onclick="document.location.href='<?= getURI('/acteurs/delete?id='.$acteur->getId()) ?>'" class="delete">Supprimer</div> <?php } ?>
+            <?php if (isAdmin()) { ?> <div onclick="document.location.href='<?= getURI('/acteurs/delete?id='.$acteur->getId()) ?>'" class="delete">Supprimer</div> <?php } ?>
 
         </div>
 

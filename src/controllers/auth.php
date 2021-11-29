@@ -19,6 +19,7 @@ class Auth extends Controller {
             'username' => '',
             'password' => '',
             'confirmPassword' => '',
+            'avatar' => DEFAULT_USER_AVATAR,
             // erreurs
             'usernameError' => '',
             'passwordError' => '',
@@ -35,13 +36,20 @@ class Auth extends Controller {
             $data['username'] = trim($_POST['username']);
             $data['password'] = trim($_POST['password']);
             $data['confirmPassword'] = trim($_POST['confirmPassword']);
+            if ($_FILES['avatar']['tmp_name'] != '') $data['avatar'] = basename(
+                str_replace(
+                    '.tmp',
+                    $_FILES['avatar']['type'] == 'image/png' ? '.png' : '.jpg', 
+                    $_FILES['avatar']['tmp_name'])
+            );
+
+            $avatarPath = AVATARS_UPLOAD_DIR . $data['avatar'];
 
             // valide les données 
                 // username
             if (!preg_match(NAME_VALIDATION, $data['username'])) $data['usernameError'] = 'Le nom d\'utilisateur ne peut contenir que des lettres et des chiffres'; 
                 // password
             if (strlen($data['password']) < PASSWORD_MIN_LENGTH || strlen($data['password']) > PASSWORD_MAX_LENGTH) $data['passwordError'] = 'Le mot de passe doit contenir entre 3 et 32 caractères';
-            else if (preg_match(PASSWORD_VALIDATION, $data['password'])) $data['passwordError'] = 'Le mot de passe doit contenir au moins une valeure numérique';
                 // confirmPassword 
             if ($data['password'] != $data['confirmPassword']) $data['confirmPasswordError'] = 'Les mots de passe ne correspondent pas, essayez encore';
 
@@ -53,17 +61,23 @@ class Auth extends Controller {
 
                 // création de l'utilisateur
                 $User = $this->model('User');
-                $user = new $User([ 'username' => $data['username'], 'password' => $data['password'] ]);
+                $user = new $User([ 
+                    'username' => $data['username'], 
+                    'password' => $data['password'],
+                    'avatar' => $data['avatar']
+                ]);
                 
                 if ($user->register()) {
+
+                    // on déplace l'image vers le dossier d'assets
+                    move_uploaded_file($_FILES['avatar']['tmp_name'], $avatarPath);
+
                     header('location: ' . getURL('/auth/login'));
                     exit();
-                }
-                else $data['usernameError'] = 'Ce nom d\'utilisateur est déjà prit';
 
+                } else $data['usernameError'] = 'Ce nom d\'utilisateur est déjà prit';
             }
-
-        } 
+        }
 
         $this->view('auth/register', $data);
 
@@ -111,8 +125,7 @@ class Auth extends Controller {
 
     public function logout () {
 
-        unset($_SESSION['userId']);
-        unset($_SESSION['username']);
+        unset($_SESSION['user']);
         unset($_SESSION['votes']);
 
         header('location: ' . getURL('/auth/login'));
@@ -122,8 +135,14 @@ class Auth extends Controller {
 
     public function _createUserSession($loggedUser) {
 
-        $_SESSION['userId'] = $loggedUser->getId();
-        $_SESSION['username'] = $loggedUser->getUsername();
+        var_dump($loggedUser);
+
+        $_SESSION['user'] = [
+            'id' => $loggedUser->getId(),
+            'username' => $loggedUser->getUsername(),
+            'avatar' => $loggedUser->getAvatar(),
+            'admin' => $loggedUser->getAdmin()
+        ];
         $_SESSION['votes'] = [];
 
         header('location: ' . getURL('/'));

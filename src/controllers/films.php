@@ -81,9 +81,15 @@ class Films extends Controller {
             $data['annee'] = trim($_POST['annee']);
             $data['score'] = trim($_POST['score']);
             $data['nbVotants'] = trim($_POST['nbVotants']);
-            $data['image'] = basename($_FILES['image']['tmp_name']);
             if (isset($_POST['acteurs'])) $data['acteurs'] = $_POST['acteurs'];
-            $imagePath = UPLOAD_DIR . $data['image'];
+            if ($_FILES['image']['tmp_name'] != '') $data['image'] = basename(
+                str_replace(
+                    '.tmp',
+                    $_FILES['image']['type'] == 'image/png' ? '.png' : '.jpg', 
+                    $_FILES['image']['tmp_name'])
+            );
+
+            $imagePath = FILMS_UPLOAD_DIR . $data['image'];
 
             // valide les données 
                 // annee
@@ -105,7 +111,7 @@ class Films extends Controller {
                         'score' => $data['score'],
                         'nbVotants' => $data['nbVotants'],
                         'image' => $data['image'],
-                    ]);                    
+                    ]);    
 
 
                     if ($film->saveOrUpdate()) {

@@ -5,6 +5,8 @@ class User extends Model {
     protected int $id;
 	protected string $username;
 	protected string $password;
+    protected string $avatar;
+    protected string $admin;
 	protected string $created_at;
 
 	function __construct ($data) {
@@ -26,8 +28,8 @@ class User extends Model {
         if ($result) return false;
         
         $this->add(
-            'INSERT INTO '. static::class .' (username, password) VALUES (:username, :password)',    
-            [ 'username' => $this->username, 'password' => $this->password ]
+            'INSERT INTO '. static::class .' (username, password, avatar) VALUES (:username, :password, :avatar)',    
+            [ 'username' => $this->username, 'password' => $this->password, 'avatar' => $this->avatar ]
         );
 
         return true;
@@ -60,5 +62,13 @@ class User extends Model {
     public function getPassword() { return $this->password; }
 
     public function setPassword($password) { $this->password = $password; }
+
+    public function getAvatar() { return $this->avatar; }
+
+    public function setAvatar($avatar) { $this->avatar = $avatar; }
+
+    public function getAdmin() { return $this->admin; }
+
+    public function setAdmin($admin) { $this->admin = $admin; }
 
 }

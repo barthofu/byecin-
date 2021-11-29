@@ -9,7 +9,7 @@
     <?php foreach ($data['randKeys'] as $key) { $film = $data['films'][$key]; ?>
 
         <div class="card" onclick="document.location.href='<?= getURI('/films/get?id='.$film->getId()) ?>'">
-            <img alt="affiche" src="<?= UPLOAD_DIR . $film->getImage() ?>">
+            <img alt="affiche" src="<?= FILMS_UPLOAD_DIR . $film->getImage() ?>">
             <h3><?= $film->getNom() ?></h3>
         </div>
         

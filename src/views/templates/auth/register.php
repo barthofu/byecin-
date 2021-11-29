@@ -1,26 +1,40 @@
-<div class="register">
+<div class="authContainer">
 
-    <h2>Inscrit toi</h2>
+    <h2 class="authTitle">Inscrit toi</h2>
 
-    <form id="register-form" method="POST" action="#">
+    <form enctype="multipart/form-data" method="POST" action="#">
 
-        <input type="text" placeholder="Nom d'utilisateur" name="username">
+        <label for="username">
+            <div class="labelName">Nom d'utilisateur</div>
+            <input type="text" placeholder="" name="username" required>
+        </label>
         <span class="invalidFeedback">
             <?= $data['usernameError'] ?>
         </span>
 
-        <input type="password" placeholder="Mot de passe" name="password">
+        <label for="password">
+            <div class="labelName">Mot de passe</div>
+            <input type="password" placeholder="" name="password" required>
+        </label>
         <span class="invalidFeedback">
             <?= $data['passwordError'] ?>
         </span>
 
-        <input type="password" placeholder="Confirmer le mot de passe" name="confirmPassword">
+        <label for="confirmPassword">
+            <div class="labelName">Confirmer le mot de passe</div>
+            <input type="password" placeholder="" name="confirmPassword" required>
+        </label>
         <span class="invalidFeedback">
             <?= $data['confirmPasswordError'] ?>
         </span>
 
+        <label for="avatar">
+            <div class="labelName">Photo de profil</div>
+            <input type="file" name="avatar" id="avatar" accept="image/png, image/jpeg">
+        </label>
+
         <button id="submit" type="submit" value="submit">Submit</button>
 
-        <p class="options">Tu possèdes déjà un compte ? <a href="<?= getURL('/auth/login') ?>/users/register">Connecte toi !</a></p>
+        <p class="redirect">Tu possèdes déjà un compte ?<br><a href="<?= getURI('/auth/login') ?>">Connecte toi !</a></p>
     </form>
 </div>

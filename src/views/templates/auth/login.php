@@ -1,5 +1,5 @@
-<div class="login">
-    <h2>Connecte toi</h2>
+<div class="authContainer">
+    <h2 class="authTitle">Connecte toi</h2>
 
     <form action="#" method ="POST">
 
@@ -7,12 +7,16 @@
             <?= $data['credentialsError'] ?>
         </span>
 
-        <input type="text" placeholder="Nom d'utilisateur" name="username">
+        <label>
+            <input type="text" placeholder="Nom d'utilisateur" name="username">
+        </label>
 
-        <input type="password" placeholder="Mot de passe" name="password">
+        <label>
+            <input type="password" placeholder="Mot de passe" name="password">
+        </label>
 
         <button id="submit" type="submit" value="submit">Valider</button>
 
-        <p class="options">Pas encore inscrit ? <a href="<?= getURL('/auth/register') ?>">Créer un compte !</a></p>
+        <p class="redirect">Pas encore inscrit ? <a href="<?= getURI('/auth/register') ?>">Crées-toi un compte !</a></p>
     </form>
 </div>

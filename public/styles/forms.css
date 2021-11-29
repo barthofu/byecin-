@@ -60,7 +60,7 @@ input,
     border-bottom: none !important;
 }
 
-.add {
+#submit {
 
     background-color: var(--background-secondary-color);
     border-radius: 10px;
@@ -80,7 +80,7 @@ input,
     font-weight: 700;
 }
 
-.add:hover {
+#submit:hover {
     background-color: var(--text-special-color);
     color: black;
 }

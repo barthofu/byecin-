@@ -14,7 +14,7 @@
 
     </div>
 
-    <?php if (isLoggedIn()) { ?>
+    <?php if (isAdmin()) { ?>
 
         <a href="<?= getURI('/acteurs/add') ?>" class="add">
             Ajouter

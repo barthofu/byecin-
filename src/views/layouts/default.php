@@ -13,6 +13,9 @@
     <link href="<?= $cssPrefix ?>public/styles/reset.css" rel="stylesheet">
     <link href="<?= $cssPrefix ?>public/styles/fonts.css" rel="stylesheet">
     <link href="<?= $cssPrefix ?>public/styles/variables.css" rel="stylesheet">
+    <link href="<?= $cssPrefix ?>public/styles/forms.css" rel="stylesheet">
+    <link href="<?= $cssPrefix ?>public/styles/auth.css" rel="stylesheet">
+
     
 </head>
 
