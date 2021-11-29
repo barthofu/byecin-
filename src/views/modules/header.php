@@ -9,7 +9,9 @@
 
             <a class="logout" href="<?= getURI('/auth/logout') ?>">
                 <img class="userIcon" src="<?= (str_contains($view, 'index') ? '' : '../' ) . AVATARS_UPLOAD_DIR . $_SESSION['user']['avatar'] ?>">
+                <div class="logoutMessage">Se déconnecter</div>
             </a>
+
 
         <?php } else { ?>
 

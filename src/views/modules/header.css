@@ -56,13 +56,6 @@ nav .login {
     border-radius: 10px;
 }
 
-nav .userIcon {
-
-    height: 40px;
-    width: 40px;
-
-    border-radius: 100%;
-}
 
 nav .logout {
 
@@ -78,3 +71,32 @@ nav .logout {
 
     fill: white;
 }
+
+.logout:hover .logoutMessage {
+
+    opacity: 1;
+}
+
+nav .userIcon {
+
+    height: 40px;
+    width: 40px;
+
+    border-radius: 100%;
+}
+
+nav .logoutMessage {
+
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-error-color);
+
+    transform: translateX(-25%);
+
+    opacity: 0;
+    transition: .2s linear;
+}
+
+
+
