@@ -47,7 +47,7 @@ class Acteurs extends Controller {
 
     public function add () {
 
-        if (!isLoggedIn()) {
+        if (!isAdmin()) {
             header('location: ' . getURL('/'));
             exit();
         }

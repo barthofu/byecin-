@@ -56,6 +56,7 @@ bycine
 - [ ] notif de succès d'ajout (c/c celle de l'ancien projet)
 - [ ] styliser le bouton d'envoie du formulaire d'ajout
 - [ ] suppression de l'affiche dans le dossier lorsqu'on supprime un film
+- [ ] page d'erreur ou redirection lorsque l'on get un film/acteur qui n'existe pas
 
 ### Optionnel 
 

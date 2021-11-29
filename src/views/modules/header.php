@@ -8,7 +8,7 @@
         <?php if (isLoggedIn()) { ?>
 
             <a class="logout" href="<?= getURI('/auth/logout') ?>">
-                <img class="userIcon" src="<?= AVATARS_UPLOAD_DIR . $_SESSION['user']['avatar'] ?>">
+                <img class="userIcon" src="<?= (str_contains($view, 'index') ? '' : '../' ) . AVATARS_UPLOAD_DIR . $_SESSION['user']['avatar'] ?>">
             </a>
 
         <?php } else { ?>
