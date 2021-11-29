@@ -1,13 +1,14 @@
-<div class="acteurs">
+<div class="acteursContainer">
 
-    <div class="acteursContainer">
+    <div class="acteurs">
 
         <?php foreach ($data['acteurs'] as $key => $acteur) { ?>
 
             <a class="acteur" href="<?= getURI('/acteurs/get?id='.$acteur->getId()) ?>">
 
-                <div class="nom"><?= $acteur->getNom() . ' ' . $acteur->getPrenom() ?></div>
-                <div class="nbOfFilms">Nombre de films : <span><?= count($acteur->getFilms()) ?></span></div>
+                <img alt="avatar" class="acteurAvatar" src=" <?= AVATARS_UPLOAD_DIR . '_defaultAvatar.png' ?> ">
+                <div class="acteurName"><?= $acteur->getPrenom() . ' ' . $acteur->getNom() ?><br><span class="acteurNbOfFilms"><?= count($acteur->getFilms()) . ' films'?></span></div>
+
             </a>
 
         <?php } ?>
@@ -16,9 +17,9 @@
 
     <?php if (isAdmin()) { ?>
 
-        <a href="<?= getURI('/acteurs/add') ?>" class="add">
-            Ajouter
+        <a href="<?= getURI('/films/add') ?>" class="add">
+            <i class="fas fa-plus"></i>
         </a>
 
-    <?php } ?>
+<?php } ?>
 </div>
