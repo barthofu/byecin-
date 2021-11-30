@@ -47,18 +47,18 @@ bycine
 - [x] form du film :
     - [x] attribuer acteur
     - [x] upload de fichier
-- [ ] form acteur :
-    - [ ] attribuer films
-- [ ] ajout de roles aux users
-- [ ] page spéciale pour la modification de film
-- [ ] bouton pour se login
-- [ ] mettre en forme les forms (login/register/add film et acteur)
-- [ ] notif de succès d'ajout (c/c celle de l'ancien projet)
-- [ ] styliser le bouton d'envoie du formulaire d'ajout
-- [ ] suppression de l'affiche dans le dossier lorsqu'on supprime un film
-- [ ] page d'erreur ou redirection lorsque l'on get un film/acteur qui n'existe pas
+- [x] form acteur :
+    - [x] attribuer films
+- [x] ajout de roles aux users
+- [x] page spéciale pour la modification de film
+- [x] bouton pour se login
+- [x] mettre en forme les forms (login/register/add film et acteur)
+- [x] notif de succès d'ajout (c/c celle de l'ancien projet)
+- [x] styliser le bouton d'envoie du formulaire d'ajout
+- [x] suppression de l'affiche dans le dossier lorsqu'on supprime un film
+- [x] page d'erreur ou redirection lorsque l'on get un film/acteur qui n'existe pas
 
 ### Optionnel 
 
-- [ ] Rendre la liste des acteurs/films sur les pages /get cliquables et redirigeant vers sa page
-- [ ] Interface de modification des films
+- [x] Rendre la liste des acteurs/films sur les pages /get cliquables et redirigeant vers sa page
+- [x] Interface de modification des films
