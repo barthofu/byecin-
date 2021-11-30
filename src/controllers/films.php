@@ -149,6 +149,9 @@ class Films extends Controller {
         $film->setActeurs([]);
         $film->saveCasting();
 
+        //on supprime l'image liée au film
+        if ($film->getImage() !== DEFAULT_FILM_IMAGE) unlink(FILMS_UPLOAD_DIR . $film->getImage());
+
         //on supprime le film dans la base de données
         $film->delete();
 
