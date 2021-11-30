@@ -27,6 +27,7 @@ input,
 .select2-container--default .select2-selection--multiple {
 
     background: transparent !important;
+    background-color: none !important;
     border: 1.5px solid var(--background-secondary-color) !important;
     border-radius: 10px !important;
     padding: 0.5rem !important;
@@ -36,31 +37,48 @@ input,
     color: var(--text-primary-color) !important;
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 600 !important;
+    font-size: 1rem;
+}
+
+.select2-search__field {
+    color: var(--text-primary-color) !important;
 }
 
 .select2-selection__choice {
-    background-color: none !important;
+    background-color: transparent !important;
     border: none !important;   
 }
 
 .select2-selection__choice__display {
 
     color: var(--text-primary-color) !important;
-    background: #3f315c !important;
+    background: var(--background-secondary-color)  !important;
     padding: 0 0.5rem !important;
 }
 
-
-
 .select2-selection__choice__remove {
 
-    background-color: #3f315c !important;
+    background-color: var(--background-secondary-color)  !important;
     border-right: none !important;
     border-top: none !important;
     border-bottom: none !important;
 }
 
-#submit {
+.select2-dropdown,
+.select2-results__option--selected {
+    background-color: var(--background-secondary-color) !important;
+
+    font-family: 'Montserrat';
+    color: var(--text-primary-color);
+    outline: none !important;
+    border: none !important;
+}
+
+.select2-results__option--selected {
+    background-color: rgb(17, 75, 17) !important;
+}
+
+.submitButton {
 
     background-color: var(--background-secondary-color);
     border-radius: 10px;
@@ -80,7 +98,7 @@ input,
     font-weight: 700;
 }
 
-#submit:hover {
+.submitButton:hover {
     background-color: var(--text-special-color);
     color: black;
 }

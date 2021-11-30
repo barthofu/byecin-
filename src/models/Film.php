@@ -11,73 +11,130 @@ class Film extends Model {
 
     private array $_acteurs = [];
 
-	function __construct ($data) {
+	function __construct ($data = []) {
 
         $this->hydrate($data);
+        if (isset($this->id)) {
+            $this->_getActeursFromCasting();
+        }
 	}
 
     // fonctions DAO
 
-    public function saveOrUpdate () {
 
-        $q = static::$_db->execQuery(
-            'SELECT * FROM '. static::class .' WHERE nom = :nom',
-            [ 'nom' => $this->nom ]
-        );
-            
-        $result = $q->fetch();
+    // ========= RELATIONS ==========
 
-        if ($result) {
+    public function saveCasting () {
 
-            $this->setId($result['id']);
-            return $this->update(
-                'UPDATE '. static::class .' SET nom = :nom, annee = :annee, score = :score, nbVotants = :nbVotants, image = :image WHERE id = :id',
-                $this->getAttributes()
-            );
+        if (!isset($this->id)) return false;
+
+        $Casting = 'Casting';
+        require_once $Casting . '.php';
+
+        //on crée les castings manquants
+        foreach ($this->_acteurs as $key => $acteurId) {
+            $results = $Casting::getByCondition('filmId = ' . $this->id . ' AND acteurId = ' . $acteurId);
+            if (count($results) === 0) {
+                $newCast = new $Casting([ 'filmId' => $this->id, 'acteurId' => $acteurId ]);
+                $newCast->save();
+                var_dump($newCast);
+            };
         }
-        else return $this->add(
-            'INSERT INTO '. static::class .' (nom, annee, score, nbVotants, image) VALUES (:nom, :annee, :score, :nbVotants, :image)',    
-            $this->getAttributes()
-        );
+
+        //on vérifie qu'il y en ai pas en trop
+        $castings = $Casting::getByCondition('filmId = ' . $this->id);
+        foreach ($castings as $key => $cast) {
+            if (!in_array($cast->getActeurId() , $this->_acteurs)) $cast->delete();
+        }
+
+        return true;
     }
 
     // ========= GETTERS ET SETTERS ==========
 
-    public function getActeurs () { return $this->_acteurs; }
+    public function hasActeur ($acteurId) { 
+        return in_array($acteurId, $this->_acteurs);
+    }
 
-    public function setActeurs ($castings) {
+    public function _getActeursFromCasting () {
 
-        $model = 'Acteur';
-        require_once $model . '.php';
+        $Casting = 'Casting';
+        require_once $Casting . '.php';
+        $casting = $Casting::getByCondition('filmId = ' . $this->id);
 
         $this->_acteurs = [];
-        foreach ($castings as $key => $casting) {
-            if ($casting->getFilmId() == $this->id) array_push($this->_acteurs, $model::getById($casting->getActeurId()));
+        foreach ($casting as $key => $cast) {
+            array_push($this->_acteurs, $cast->getActeurId());
         }
+    }
+
+    public function fetchActeurs () {
+        
+        $Acteur = 'Acteur';
+        require_once $Acteur . '.php';
+
+        return array_map(
+            fn ($acteurId) => $Acteur::getById($acteurId),
+            $this->_acteurs
+        );
+    }
+
+    public function getActeurs () { return $this->_acteurs; }
+
+    public function setActeurs ($acteurs) { 
+        $this->_acteurs = $acteurs; 
+        return true;
     }
 
     public function getId() { return $this->id; }
 
-    public function setId($id) { $this->id = $id; }
+    public function setId($id) { 
+        $this->id = $id; 
+        return true;
+    }
 
     public function getNom() { return $this->nom; }
 
-    public function setNom($nom) { $this->nom = $nom; }
+    public function setNom($nom) { 
+        $this->nom = $nom; 
+        return true;
+    }
 
     public function getAnnee() { return $this->annee; }
 
-    public function setAnnee($annee) { $this->annee = $annee; }
+    public function setAnnee($annee) { 
+
+        if ($annee > 2050 || $annee < 1800) return false;
+        
+        $this->annee = $annee; 
+        return true;
+    }
 
     public function getScore() { return $this->score; }
 
-    public function setScore($score) { $this->score = $score; }
+    public function setScore($score) { 
+        
+        if ($score < 0 || $score > 10) return false;
+
+        $this->score = $score; 
+        return true;
+    }
 
     public function getNbVotants() { return $this->nbVotants; }
 
-    public function setNbVotants($nbVotants) { $this->nbVotants = $nbVotants; }
+    public function setNbVotants($nbVotants) { 
+        
+        if ($nbVotants < 0) return false;
+
+        $this->nbVotants = $nbVotants; 
+        return true;
+    }
 
     public function getImage() { return $this->image; }
 
-    public function setImage($image) { $this->image = $image; }	
+    public function setImage($image) { 
+        $this->image = $image; 
+        return true;
+    }	
 
 }

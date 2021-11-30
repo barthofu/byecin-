@@ -15,7 +15,7 @@
             <input type="password" placeholder="Mot de passe" name="password">
         </label>
 
-        <button id="submit" type="submit" value="submit">Valider</button>
+        <button class="submitButton" id="submit" type="submit" value="submit">Valider</button>
 
         <p class="redirect">Pas encore inscrit ? <a href="<?= getURI('/auth/register') ?>">Crées-toi un compte !</a></p>
     </form>

@@ -54,3 +54,8 @@ function getViewCSSPathPrefix ($view) {
     );
     return $validator ? '../' : '' ;
 }
+
+function sanitizePOST () {
+
+    return array_filter($_POST, fn ($attr) => $attr !== '');
+}

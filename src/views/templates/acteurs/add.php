@@ -17,7 +17,7 @@
         </select>
     </label>
     
-    <button type="submit">Envoyer</button>
+    <button class="submitButton" type="submit">Envoyer</button>
 
     <span class="sucessMessage">
         <?= $data['successMessage'] ?>

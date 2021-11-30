@@ -1,0 +1,140 @@
+.container {
+
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.filmContainer {
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    width: 70%;
+}
+
+input {
+    width: fit-content;
+}
+
+label {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: #b6b6b6;
+    font-family: "Titillium Web", serif;
+    font-weight: 600;
+    font-size: 1.5vw;
+
+    margin: .8rem 0;
+}
+
+input:not(.empty),
+.select2-container {
+    margin-left: 1rem !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    width: 30vw;
+}
+
+.filmNom {
+
+    color: #e2e0ec;
+    font-family: "Titillium Web", serif;
+    font-weight: 800;
+    font-size: 3vw;
+}
+
+.subInfos {
+
+    margin-top: 2rem;
+}
+
+.subInfos > div {
+
+    color: #b6b6b6;
+    font-family: "Titillium Web", serif;
+    font-weight: 600;
+    font-size: 1.5vw;
+}
+
+.subInfos span {
+    color: rgb(255, 190, 116);
+}
+
+
+
+.filmImage {
+    
+    height: 60vh;
+
+    margin-right: 4rem;
+
+    border-radius: 10px;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+
+    opacity: 1;
+    cursor: pointer;
+
+    transition: .4s linear;
+}
+
+.uploadText {
+
+    z-index: -1;
+    color: var(--text-secondary-color);
+    position: absolute;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transform: translateX(30%);
+}
+
+.uploadFileName {
+
+    color: var(--text-special-color);
+    bottom: 15%;
+    transform: translateX(5%);
+    position: absolute;
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.filmImage:hover {
+    opacity: 0.3;
+}
+
+.filmImageUpload:hover .uploadText {
+    z-index: 10;
+}
+
+input[type=file] {
+    display: none;
+}
+
+
+.buttons {
+
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.buttons > button {
+
+    margin: 0 2rem;
+}
+
+.cancelButton {
+    background: var(--text-error-color) !important;
+}

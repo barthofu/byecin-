@@ -13,14 +13,6 @@ class Casting extends Model {
 
     // fonctions DAO
 
-    public function saveOrUpdate () {
-
-        return $this->add(
-            'INSERT INTO '. static::class .' (filmId, acteurId) VALUES (:filmId, :acteurId)',    
-            $this->getAttributes()
-        );
-    }
-
     // ========= GETTERS ET SETTERS ==========
 
     public function getId() { return $this->id; }

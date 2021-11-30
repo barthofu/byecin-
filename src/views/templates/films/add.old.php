@@ -9,26 +9,26 @@
         <div class="labelName">Année de sortie</div>
         <input type="number" name="annee" id="annee" placeholder="" required>
     </label>
-    <?php if ($data['error'] === 'annee') { ?>
-        <span class="invalidFeedback">L'année est invalide</span>
-    <?php } ?>    
-    
+    <span class="invalidFeedback">
+        <?= $data['anneeError'] ?>
+    </span>
+
     <label for="score">
         <div class="labelName">Score</div>
-        <input type="number" step="0.1" name="score" id="score" placeholder="">
+        <input type="number" step="0.1" name="score" id="score" placeholder="" required>
     </label>
-    <?php if ($data['error'] === 'score') { ?>
-        <span class="invalidFeedback">Le score est invalide</span>
-    <?php } ?>  
+    <span class="invalidFeedback">
+        <?= $data['scoreError'] ?>
+    </span>
 
     <label for="nbVotants">
         <div class="labelName">Nombre de votants</div>
-        <input type="number" name="nbVotants" id="nbVotants" placeholder="">
+        <input type="number" name="nbVotants" id="nbVotants" placeholder="" required>
     </label>
 
     <label for="image">
         <div class="labelName">Affiche</div>
-        <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg" required>
     </label>
 
     <label for="acteurs">
@@ -40,16 +40,13 @@
         </select>
     </label>
 
-
     <br>
     <button class="submitButton" type="submit">Envoyer</button>
 
     <br>
-    <?php if ($data['success']) { ?>
-        <span class="successMessage">Ajouté avec succès !</span>
-    <?php } else if ($data['error'] === 'insertFailed') { ?>
-        <span class="invalidFeedback">Erreur lors de l'ajout</span>
-    <?php } ?>
+    <div class="successMessage">
+        <?= $data['successMessage'] ?>
+    </div>
 
 </form>
 

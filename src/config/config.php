@@ -10,6 +10,7 @@ const PASSWORD_MIN_LENGTH = 3;
 const PASSWORD_MAX_LENGTH = 32;
 
 const DEFAULT_USER_AVATAR = "_defaultAvatar.png";
+const DEFAULT_FILM_IMAGE = "_defaultFilmImage.jpg";
 
 // directories
 const UPLOAD_DIR = 'public/assets/';

@@ -16,9 +16,9 @@ class Model {
         }
     }
 
-    public function getAttributes () {
+    public function getAttributes ($excludes = ['id']) {
 
-        return get_object_vars($this);
+        return array_filter(get_object_vars($this), fn ($key) => !in_array($key, $excludes), ARRAY_FILTER_USE_KEY);
 
         // $attributes = get_object_vars($this);
         // $filteredAttributes = array_filter(
@@ -32,19 +32,39 @@ class Model {
 
     // fonctions DAO
 
-    public function add ($query, $data) {
+    public function save () {
+
+        if (isset($this->id)) return $this->update() ? true : false;
+        else {
+            if ($this->insert()) {
+                $this->id = static::$_db->lastInsertId();
+                return true;
+            } else return false;
+        }
+
+    }
+
+    public function insert () {
+
+        $attr = $this->getAttributes();
+        $keys = array_keys($attr);
 
         return static::$_db->execQuery(
-            $query,
-            $data
+            'INSERT INTO ' . static::class . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', array_map(fn ($key) => ':'.$key, $keys)) . ')',
+            $attr
         );
     }
 
-    public function update ($query, $data) {
+    public function update () {
+
+        if (!isset($this->id)) return false;
+
+        $attr = $this->getAttributes();
+        $keys = array_keys($attr);
 
         return static::$_db->execQuery(
-            $query,
-            $data
+            'UPDATE ' . static::class . ' SET ' . implode(', ', array_map(fn ($key) => $key . ' = :'.$key, $keys)) . ' WHERE id = ' . $this->id,
+            $attr
         );
     }
 
@@ -91,9 +111,9 @@ class Model {
     } 
 
     public static function getByCondition ($condition) {
-
-        $className = static::class;
     
+        $className = static::class;
+
         $q = static::$_db->execQuery(
             'SELECT * FROM '. $className .' WHERE ' . $condition,
             []

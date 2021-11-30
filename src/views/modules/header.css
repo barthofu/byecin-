@@ -38,7 +38,7 @@ nav .right {
 
 nav .right a {
 
-    margin: 0 2rem;
+    margin: 0 1.5rem;
     color: var(--text-primary-color);
     font-family: "Titillium Web", serif;
     font-weight: bold;
@@ -88,7 +88,7 @@ nav .userIcon {
 nav .logoutMessage {
 
     position: absolute;
-    font-size: 1rem;
+    font-size: .8rem;
     font-weight: 600;
     color: var(--text-error-color);
 

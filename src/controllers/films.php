@@ -19,124 +19,121 @@ class Films extends Controller {
             'notFoundError' => false
         ];
 
-        // si aucun paramètre n'est passé dans l'url
+        // redirection forcée si aucun paramètre n'est passé dans l'url 
         if (!isset($params['id'])) {
             header('location: ' . getURL('/films'));
             exit();
         }
 
         $Film = $this->model('Film');
-        $Casting = $this->model('Casting');
-        $castings = $Casting::getAll();
-
         $film = $Film::getById($params['id']);
 
-        if ($film) {
-            $film->setActeurs($castings);
-            $data['film'] = $film;
-        }
-        else
-            $data['notFoundError'] = true;
+        if ($film) $data['film'] = $film;
+        else $data['notFoundError'] = true;
 
         $this->view('films/get', $data);
     }
 
-    public function add () {
+    public function update ($params) {
 
-        if (!isAdmin()) {
-            header('location: ' . getURL('/'));
-            exit();
-        }
+        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        // si aucun paramètre n'est passé dans l'url
+        if (!isset($params['id'])) { header('location: ' . getURL('/films')); exit(); }
 
         $Acteur = $this->model('Acteur');
-        $acteurs = $Acteur::getAll();
+        $Film = $this->model('Film');
 
         $data = [
-            // valeurs par défaut
-            'nom' => '',
-            'annee' => '',
-            'score' => '',
-            'nbVotants' => '',
-            'image' => '',
-            'acteurs' => [],
-            // erreurs
-            'anneeError' => '',
-            'scoreError' => '',
-            'imageError' => '',
-            // succès
-            'successMessage' => '',
+            'film' => $Film::getById($params['id']),
+            'error' => '',
+            'success' => false,
+            'allActeurs' => $Acteur::getAll()            
+        ];
 
-            // autres
-            'allActeurs' => $acteurs
+        if (!$data['film'])  { header('location: ' . getURL('/films'));  exit(); }
+
+        // vérifie si le form d'inscription a été submit ou non
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // on set tous les différents attributs présents dans le POST en vérifiant qu'aucun ne provoque d'erreur
+            foreach (sanitizePOST() as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (method_exists($data['film'], $method)) {
+                    if (!$data['film']->$method($value)) {
+                        $data['error'] = $key;
+                        break;
+                    }
+                }
+            }
+
+            // s'il n'y a aucune erreur
+            if ($data['error'] == '') {
+
+                //gestion de l'image
+                $imageName = moveImage('image', FILMS_UPLOAD_DIR, DEFAULT_FILM_IMAGE);
+                if ($imageName !== DEFAULT_FILM_IMAGE) $data['film']->setImage($imageName);
+
+                //enregistrement du film
+                if ($data['film']->save()) {
+                    //gestion du casting et des relations
+                    if ($data['film']->saveCasting()) $data['success'] = true;
+                    header('location: ' . getURL('/films/get?id=' . $data['film']->getId()));
+                    exit();
+                } else {
+                    $data['error'] = 'updateFailed';
+                }
+            }
+        }
+
+        $this->view('films/update', $data);
+    }
+
+
+    public function add () {
+
+        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+
+        $Acteur = $this->model('Acteur');
+
+        $data = [
+            'error' => '',
+            'success' => false,
+            'allActeurs' => $Acteur::getAll()            
         ];
 
         // vérifie si le form d'inscription a été submit ou non
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            // on 'sanitize' les entrées du form
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $Film = $this->model('Film');
+            $newFilm = new $Film();
 
-            // on remplit les données avec celles du form
-            $data['nom'] = trim($_POST['nom']);
-            $data['annee'] = trim($_POST['annee']);
-            $data['score'] = trim($_POST['score']);
-            $data['nbVotants'] = trim($_POST['nbVotants']);
-            if (isset($_POST['acteurs'])) $data['acteurs'] = $_POST['acteurs'];
-            if ($_FILES['image']['tmp_name'] != '') $data['image'] = basename(
-                str_replace(
-                    '.tmp',
-                    $_FILES['image']['type'] == 'image/png' ? '.png' : '.jpg', 
-                    $_FILES['image']['tmp_name'])
-            );
-
-            $imagePath = FILMS_UPLOAD_DIR . $data['image'];
-
-            // valide les données 
-                // annee
-            if ($data['annee'] > 2050 || $data['annee'] < 1800) $data['anneeError'] = 'L\'année est invalide'; 
-                // score
-            if ($data['score'] < 0 || $data['score'] > 10) $data['scoreError'] = 'Le score doit être compris entre 0 et 10';
-
-            // vérifie que toutes les errors soient vides 
-            if (empty($data['anneeError']) && empty($data['scoreError'])) {
-
-                // on déplace l'image vers le dossier d'assets
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
-
-                    // création du film
-                    $Film = $this->model('Film');
-                    $film = new $Film([
-                        'nom' => $data['nom'],
-                        'annee' => $data['annee'],
-                        'score' => $data['score'],
-                        'nbVotants' => $data['nbVotants'],
-                        'image' => $data['image'],
-                    ]);    
-
-
-                    if ($film->saveOrUpdate()) {
-
-                        $filmId = Model::$_db->lastInsertId();
-                        $Casting = $this->model('Casting');
-
-                        foreach ($data['acteurs'] as $key => $acteurId) {
-
-                            $casting = new $Casting([
-                                'filmId' => $filmId,
-                                'acteurId' => $acteurId
-                            ]);
-                            $casting->saveOrUpdate();
-                        }
-
-                        $data['successMessage'] = $data['nom'] . ' a bien été ajouté/modifié !';
-                    };
-                } else {
-                    $data['imageError'] = 'Une erreur est survenue avec l\'image';
+            // on set tous les différents attributs présents dans le POST en vérifiant qu'aucun ne provoque d'erreur
+            foreach (sanitizePOST() as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (method_exists($newFilm, $method)) {
+                    if (!$newFilm->$method($value)) {
+                        $data['error'] = $key;
+                        break;
+                    }
                 }
-                
             }
 
-        } 
+            // s'il n'y a aucune erreur
+            if ($data['error'] == '') {
+
+                //gestion de l'image
+                $imageName = moveImage('image', FILMS_UPLOAD_DIR, DEFAULT_FILM_IMAGE);
+                $newFilm->setImage($imageName);
+
+                //enregistrement du film
+                if ($newFilm->save()) {
+                    //gestion du casting et des relations
+                    if ($newFilm->saveCasting()) $data['success'] = true;
+                } else {
+                    $data['error'] = 'insertFailed';
+                }
+            }
+        }
 
         $this->view('films/add', $data);
     }
@@ -159,15 +156,12 @@ class Films extends Controller {
 
             } else { // film existant
 
+                //on supprime les castings liés au film
+                $film->setActeurs([]);
+                $film->saveCasting();
+
+                //on supprime le film dans la base de données
                 $film->delete();
-
-                //on supprime aussi les castings liés au film
-                $Casting = $this->model('Casting');
-                $castings = $Casting::getByCondition('filmId = ' . $film->getId());
-
-                foreach ($castings as $key => $casting) {
-                    $casting->delete();
-                }
             }
 
             header('location: ' . getURL('/films'));
@@ -196,7 +190,7 @@ class Films extends Controller {
     
                     // ajout du vote dans la base de données
                     $film->setNbVotants($film->getNbVotants() + 1);
-                    $film->saveOrUpdate();
+                    $film->save();
                     // ajout du vote dans la variable de session
                     array_push($_SESSION['votes'], $params['id']);
 
@@ -204,7 +198,7 @@ class Films extends Controller {
 
                     // suppression du vote dans la base de données
                     $film->setNbVotants($film->getNbVotants() - 1);
-                    $film->saveOrUpdate();
+                    $film->save();
                     // suppression du vote dans la variable de session
                     $_SESSION['votes'] = array_diff($_SESSION['votes'], [$params['id']]);
                 }

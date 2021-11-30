@@ -33,7 +33,7 @@
             <input type="file" name="avatar" id="avatar" accept="image/png, image/jpeg">
         </label>
 
-        <button id="submit" type="submit" value="submit">Submit</button>
+        <button class="submitButton" id="submit" type="submit" value="submit">Submit</button>
 
         <p class="redirect">Tu possèdes déjà un compte ?<br><a href="<?= getURI('/auth/login') ?>">Connecte toi !</a></p>
     </form>

@@ -74,17 +74,17 @@
     align-items: center;
 }
 
-.buttons .vote.fas {
+.buttons .vote  i.fas {
 
     color: rgb(91, 214, 91);
 }
 
-.buttons .vote {
+.buttons .vote i {
 
     color: #e2e0ec;
 
     font-size: 2rem;
-    margin: 0 10vh 0 10vh;
+    margin: 0 2rem;
 
     transition: color 0.4s linear;
 }
@@ -94,17 +94,27 @@
     color: rgb(91, 214, 91);
 }
 
-.buttons .delete {
+.buttons {
 
-    font-size: 1.5rem;
-    background-color: rgb(126, 4, 4);
-    padding: 1rem;
-    border-radius: 10px;
-
-    transition: background-color 0.4s linear;
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.buttons .delete:hover {
+.submitButton {
+    margin: 0 2rem;
+    cursor: pointer;
+    width: auto;
+}
 
-    background-color: rgb(163, 23, 23);
+.submitButton.delete { background: var(--text-error-color); }
+.submitButton.delete:hover { 
+    color: var(--text-primary-color);
+    background-color: var(--text-error-hover-color);
+}
+.submitButton.modify { background-color: var(--element-primary-color); }
+.submitButton.modify:hover { 
+    color: var(--text-primary-color);
+    background-color: var(--element-primary-hover-color);
 }
