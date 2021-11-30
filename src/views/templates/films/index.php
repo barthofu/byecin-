@@ -4,7 +4,7 @@
 
     
 
-        <?php foreach (array_merge($data['films'], $data['films'], $data['films']) as $key => $film) { ?>
+        <?php foreach ($data['films'] as $key => $film) { ?>
 
             <a class="film" href="<?= getURI('/films/get?id='.$film->getId()) ?>">
 
