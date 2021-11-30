@@ -1,4 +1,4 @@
-<?php if (!$data['notFoundError']) { 
+<?php 
     $film = $data['film'];
 ?>
 
@@ -14,9 +14,11 @@
                     <div class="anneeDeSortie">Année de sortie : <span><?= $film->getAnnee() ?></span></div>
                     <div class="score">Score : <span><?= $film->getScore() ?></span></div>
                     <div class="nbVotants">Nombre de votants : <span><?= $film->getNbVotants() ?></span></div>
-                    <div class="acteurs">Acteurs : <span>
-                        <?= implode(', ',  array_map(fn ($acteur) => $acteur->getPrenom() . ' ' .  $acteur->getNom(), $film->fetchActeurs()))?>
-                    </span></div>
+                    <div class="acteurs">Acteurs : 
+                        <span>
+                            <?= implode(', ',  array_map(fn ($acteur) => $acteur->getPrenom() . ' ' .  $acteur->getNom(), $film->fetchActeurs()))?>
+                        </span>
+                    </div>
                 </div>
 
             </div>
@@ -43,10 +45,3 @@
         </div>
 
     </div>
-
-    
-
-<?php } else { ?>
-
-
-<?php } ?>

@@ -37,7 +37,6 @@ class Film extends Model {
             if (count($results) === 0) {
                 $newCast = new $Casting([ 'filmId' => $this->id, 'acteurId' => $acteurId ]);
                 $newCast->save();
-                var_dump($newCast);
             };
         }
 

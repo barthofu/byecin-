@@ -1,12 +1,15 @@
 <form method="post" action="#">
 
-    <label for="nom">
-        <div class="labelName">Nom</div>
-        <input type="text" name="nom" id="nom" placeholder="" required></label>
-
     <label for="prenom">
         <div class="labelName">Prénom</div>
-        <input type="text" name="prenom" id="prenom" placeholder="" required></label>
+        <input type="text" name="prenom" id="prenom" placeholder="" required>
+    </label>
+
+    <label for="nom">
+        <div class="labelName">Nom</div>
+        <input type="text" name="nom" id="nom" placeholder="" required>
+    </label>
+
 
     <label for="films">
         <div class="labelName">Films</div>
@@ -19,9 +22,11 @@
     
     <button class="submitButton" type="submit">Envoyer</button>
 
-    <span class="sucessMessage">
-        <?= $data['successMessage'] ?>
-    </span>
+    <?php if ($data['success']) { ?>
+        <span class="successMessage">Ajouté avec succès !</span>
+    <?php } else if ($data['error'] === 'insertFailed') { ?>
+        <span class="invalidFeedback">Erreur lors de l'ajout</span>
+    <?php } ?>
 
 </form>
 

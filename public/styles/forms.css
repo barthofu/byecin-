@@ -103,27 +103,24 @@ input,
     color: black;
 }
 
-.successMessage {
+.successMessage,
+.invalidFeedback {
 
+    margin-top: 1rem;
     font-size: 1rem;
     font-family: "Montserrat", sans-serif;
-    color: var(--text-special-color);
+    font-weight: 600;
     opacity: 0;
 
     animation: temporaryMessageAnimation 3s;
 }
+
+.successMessage { color: var(--text-special-color); }
+.invalidFeedback { color: var(--text-error-color); }
 
 @keyframes temporaryMessageAnimation {
     0% { opacity: 0; }
     20% { opacity: 100%; }
     80% { opacity: 100%; }
     100% { opacity: 0; }
-}
-
-.invalidFeedback {
-
-    font-size: 1rem;
-    font-family: "Montserrat", sans-serif;
-    color: var(--text-error-color);
-    font-weight: 600;
 }

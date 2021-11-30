@@ -26,6 +26,7 @@
 .card {
 
     margin: 1rem;
+    cursor: pointer;
 }
 
 .card img {

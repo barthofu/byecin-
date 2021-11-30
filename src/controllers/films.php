@@ -12,24 +12,19 @@ class Films extends Controller {
 
     public function get ($params)  {
 
+        // redirection forcée si aucun paramètre n'est passé dans l'url 
+        if (!isset($params['id'])) { header('location: ' . getURL('/films')); exit(); }
+
+        $Film = $this->model('Film');
+
         $data = [
             //valeurs par défaut 
-            'film' => '',
+            'film' => $Film::getById($params['id']),
             //erreurs
             'notFoundError' => false
         ];
 
-        // redirection forcée si aucun paramètre n'est passé dans l'url 
-        if (!isset($params['id'])) {
-            header('location: ' . getURL('/films'));
-            exit();
-        }
-
-        $Film = $this->model('Film');
-        $film = $Film::getById($params['id']);
-
-        if ($film) $data['film'] = $film;
-        else $data['notFoundError'] = true;
+        if (!$data['film']) { header('location: ' . getURL('/films'));  exit(); }
 
         $this->view('films/get', $data);
     }
@@ -140,32 +135,24 @@ class Films extends Controller {
 
     public function delete ($params) {
 
-        if (!isset($params['id'])) {
-            header('location: ' . getURL('/'));
-            exit();
-        } else {
+        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        // si aucun paramètre n'est passé dans l'url
+        if (!isset($params['id'])) { header('location: ' . getURL('/films')); exit(); }
 
-            $Film = $this->model('Film');
-            $film = $Film::getById($params['id']);
+        $Film = $this->model('Film');
+        $film = $Film::getById($params['id']);
 
-            if (!$film) { // film inexistant
+        // film non trouvé
+        if (!$film) { header('location: ' . getURL('/')); exit() ; }
 
-                // on redirige vers la home page
-                header('location: ' . getURL('/'));
-                exit();
+        //on supprime les castings liés au film
+        $film->setActeurs([]);
+        $film->saveCasting();
 
-            } else { // film existant
+        //on supprime le film dans la base de données
+        $film->delete();
 
-                //on supprime les castings liés au film
-                $film->setActeurs([]);
-                $film->saveCasting();
-
-                //on supprime le film dans la base de données
-                $film->delete();
-            }
-
-            header('location: ' . getURL('/films'));
-        }
+        header('location: ' . getURL('/films'));
     }
 
     public function vote ($params) {

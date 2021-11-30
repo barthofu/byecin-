@@ -5,89 +5,145 @@ class Acteurs extends Controller {
     public function index () {
 
         $Acteur = $this->model('Acteur');
-        $Casting = $this->model('Casting');
         $acteurs = $Acteur::getAll();
-        $castings = $Casting::getAll();
-
-        for ($i = 0; $i < count($acteurs); $i++) $acteurs[$i]->setFilms($castings);
 
         $this->view('acteurs/index', [ 'acteurs' => $acteurs ]);
     }
 
     public function get ($params)  {
 
+        // redirection forcée si aucun paramètre n'est passé dans l'url 
+        if (!isset($params['id'])) { header('location: ' . getURL('/acteurs')); exit(); }
+
+        $Acteur = $this->model('Acteur');
+
         $data = [
             //valeurs par défaut 
-            'acteur' => '',
+            'acteur' => $Acteur::getById($params['id']),
             //erreurs
             'notFoundError' => false
         ];
 
-        // si aucun paramètre n'est passé dans l'url
-        if (!isset($params['id'])) {
-            header('location: ' . getURL('/acteurs'));
-            exit();
-        }
-
-        $Acteur = $this->model('Acteur');
-        $Casting = $this->model('Casting');
-        $castings = $Casting::getAll();
-
-        $acteur = $Acteur::getById($params['id']);
-
-        if ($acteur) {
-            $acteur->setFilms($castings);
-            $data['acteur'] = $acteur;
-        }
-        else
-            $data['notFoundError'] = true;
+        if (!$data['acteur']) { header('location: ' . getURL('/acteur'));  exit(); }
 
         $this->view('acteurs/get', $data);
     }
 
-    public function add () {
+    public function update ($params) {
 
-        if (!isAdmin()) {
-            header('location: ' . getURL('/'));
-            exit();
-        }
+        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        // si aucun paramètre n'est passé dans l'url
+        if (!isset($params['id'])) { header('location: ' . getURL('/acteurs')); exit(); }
 
+        $Acteur = $this->model('Acteur');
         $Film = $this->model('Film');
-        $films = $Film::getAll();
 
         $data = [
-            // valeurs par défaut
-            'nom' => '',
-            'prenom' => '',
-            // succès
-            'successMessage' => '',
-            
-            // autres
-            'allFilms' => $films
+            'acteur' => $Acteur::getById($params['id']),
+            'error' => '',
+            'success' => false,
+            'allFilms' => $Film::getAll()            
+        ];
+
+        if (!$data['acteur'])  { header('location: ' . getURL('/acteurs'));  exit(); }
+
+        // vérifie si le form d'inscription a été submit ou non
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // on set tous les différents attributs présents dans le POST en vérifiant qu'aucun ne provoque d'erreur
+            foreach (sanitizePOST() as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (method_exists($data['acteur'], $method)) {
+                    if (!$data['acteur']->$method($value)) {
+                        $data['error'] = $key;
+                        break;
+                    }
+                }
+            }
+
+            // s'il n'y a aucune erreur
+            if ($data['error'] == '') {
+
+                //enregistrement du film
+                if ($data['acteur']->save()) {
+                    //gestion du casting et des relations
+                    if ($data['acteur']->saveCasting()) $data['success'] = true;
+                    header('location: ' . getURL('/acteurs/get?id=' . $data['acteur']->getId()));
+                    exit();
+                } else {
+                    $data['error'] = 'updateFailed';
+                }
+            }
+        }
+
+        $this->view('acteurs/update', $data);
+    }
+
+    public function add () {
+
+        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+
+        $Film = $this->model('Film');
+
+        $data = [
+            'error' => '',
+            'success' => false,
+            'allFilms' => $Film::getAll()            
         ];
 
         // vérifie si le form d'inscription a été submit ou non
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            // on 'sanitize' les entrées du form
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            // on remplit les données avec celles du form
-            $data['nom'] = trim($_POST['nom']);
-            $data['prenom'] = trim($_POST['prenom']);
-
-            // création du film
             $Acteur = $this->model('Acteur');
-            $acteur = new $Acteur([
-                'nom' => $data['nom'],
-                'prenom' => $data['prenom'],
-            ]);
+            $newActeur = new $Acteur();
 
-            if ($acteur->saveOrUpdate()) {
-                $data['successMessage'] = $data['prenom'] . ' ' . $data['nom'] . ' a bien été ajouté !';
-            };
-        } 
+            // on set tous les différents attributs présents dans le POST en vérifiant qu'aucun ne provoque d'erreur
+            foreach (sanitizePOST() as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                if (method_exists($newActeur, $method)) {
+                    if (!$newActeur->$method($value)) {
+                        $data['error'] = $key;
+                        break;
+                    }
+                }
+            }
+
+            // s'il n'y a aucune erreur
+            if ($data['error'] == '') {
+
+                //enregistrement du film
+                if ($newActeur->save()) {
+                    //gestion du casting et des relations
+                    if ($newActeur->saveCasting()) $data['success'] = true;
+                } else {
+                    $data['error'] = 'insertFailed';
+                }
+            }
+        }
 
         $this->view('acteurs/add', $data);
     }
+
+    public function delete ($params) {
+
+        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        // si aucun paramètre n'est passé dans l'url
+        if (!isset($params['id'])) { header('location: ' . getURL('/acteurs')); exit(); }
+
+        $Acteur = $this->model('Acteur');
+        $acteur = $Acteur::getById($params['id']);
+
+        // film non trouvé
+        if (!$acteur) { header('location: ' . getURL('/')); exit() ; }
+
+        //on supprime les castings liés à l'acteur
+        $acteur->setFilms([]);
+        $acteur->saveCasting();
+
+        //on supprime l'acteur dans la base de données
+        $acteur->delete();
+
+        header('location: ' . getURL('/acteurs'));
+    }
+
 }

@@ -17,7 +17,7 @@
 
     <?php if (isAdmin()) { ?>
 
-        <a href="<?= getURI('/films/add') ?>" class="add">
+        <a href="<?= getURI('/acteurs/add') ?>" class="add">
             <i class="fas fa-plus"></i>
         </a>
 

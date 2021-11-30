@@ -1,0 +1,93 @@
+.container {
+
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.acteurContainer {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+
+    color: #e2e0ec;
+    font-family: "Titillium Web", serif;
+}
+
+.acteurNom {
+
+    font-weight: 800;
+    font-size: 2.5vw;
+
+    width:  20vw;
+    margin: .8rem 0;
+    text-align: center;
+}
+
+label[for="films"] {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: #b6b6b6;
+    font-family: "Titillium Web", serif;
+    font-weight: 600;
+    font-size: 1.5vw;
+
+    margin: 0 .8rem;
+}
+
+.select2-container--default .select2-selection--multiple {
+    width: 20vw;
+}
+
+.select2-container {
+    width: unset !important;
+}
+
+
+.group {
+
+    color: #e2e0ec;
+    font-family: "Titillium Web", serif;
+    font-weight: 800;
+    font-size: 3vw;
+
+    display: flex;
+
+}
+
+input[type=file] {
+    display: none;
+}
+
+
+.buttons {
+
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.buttons > button {
+
+    margin: 0 2rem;
+}
+
+.cancelButton {
+    background: var(--text-error-color) !important;
+}

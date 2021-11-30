@@ -28,13 +28,17 @@
     font-size: 3vw;
 }
 
-.films {
+.acteurs {
 
     font-size: 1.5vw;
     font-weight: 500;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.films span {
+.acteurs span {
 
     font-size: 1.2vw;
     color: rgb(255, 190, 116);
@@ -42,29 +46,27 @@
 
 .buttons {
 
-    
-    color: #e2e0ec;
-    font-family: "Titillium Web", serif;
-    font-weight: 800;
-
-    margin-top: 3rem;
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
 
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.buttons .delete {
-
-    font-size: 1.5rem;
-    background-color: rgb(126, 4, 4);
-    padding: 1rem;
-    border-radius: 10px;
-
-    transition: background-color 0.4s linear;
+.submitButton {
+    margin: 0 2rem;
+    cursor: pointer;
+    width: auto;
 }
 
-.buttons .delete:hover {
-
-    background-color: rgb(163, 23, 23);
+.submitButton.delete { background: var(--text-error-color); }
+.submitButton.delete:hover { 
+    color: var(--text-primary-color);
+    background-color: var(--text-error-hover-color);
+}
+.submitButton.modify { background-color: var(--element-primary-color); }
+.submitButton.modify:hover { 
+    color: var(--text-primary-color);
+    background-color: var(--element-primary-hover-color);
 }
