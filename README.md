@@ -44,3 +44,11 @@ bycine
         ├─ layout # éléments redondants aux pages (ex: header et footer)
         └─ templates # contenu des pages
 ```
+
+## Todo
+
+- [ ] Faire le mail avec :
+    - Lien hebergé
+    - Lien du github
+    - Logs du compte du prof (admin) et ceux du compte etu (user)
+    - Instructions docker et .env en pièce jointe pour l'éxecuter en local
