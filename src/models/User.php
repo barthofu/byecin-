@@ -44,7 +44,7 @@ class User extends Model {
 
         $result = $q->fetch();
 
-        if (password_verify($this->password, $result['password'])) return new self($result);
+        if ($result && password_verify($this->password, $result['password'])) return new self($result);
         else return false;
 
     }
