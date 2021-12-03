@@ -1,7 +1,7 @@
 :root {
 
-    --text-primary-color: #dddbeb;
-    --text-secondary-color: #b4b4b4;
+    --text-primary-color: #121213;
+    --text-secondary-color: #3b3a3a;
     --text-special-color: greenyellow;
     --text-error-color: rgb(224, 95, 95);
     --text-error-hover-color: rgb(158, 51, 51);
@@ -9,7 +9,7 @@
 
     --primary-color: #1f2326;
 
-    --background-primary-color: rgb(38, 37, 39);
+    --background-primary-color: rgb(253, 253, 253);
     --background-secondary-color: rgb(57, 56, 58);
 
     --element-primary-color: rgb(47, 55, 80);

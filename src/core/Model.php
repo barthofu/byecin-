@@ -50,7 +50,7 @@ class Model {
         $keys = array_keys($attr);
 
         return static::$_db->execQuery(
-            'INSERT INTO ' . static::class . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', array_map(fn ($key) => ':'.$key, $keys)) . ')',
+            'INSERT INTO ' . strtolower(static::class) . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', array_map(fn ($key) => ':'.$key, $keys)) . ')',
             $attr
         );
     }
@@ -63,7 +63,7 @@ class Model {
         $keys = array_keys($attr);
 
         return static::$_db->execQuery(
-            'UPDATE ' . static::class . ' SET ' . implode(', ', array_map(fn ($key) => $key . ' = :'.$key, $keys)) . ' WHERE id = ' . $this->id,
+            'UPDATE ' . strtolower(static::class) . ' SET ' . implode(', ', array_map(fn ($key) => $key . ' = :'.$key, $keys)) . ' WHERE id = ' . $this->id,
             $attr
         );
     }
@@ -71,7 +71,7 @@ class Model {
     public function delete () {
 
         static::$_db->execQuery(
-            'DELETE FROM '. static::class .' WHERE id = :id',
+            'DELETE FROM '. strtolower(static::class) .' WHERE id = :id',
             [ 'id' => $this->id ]
         );
     }
@@ -80,11 +80,11 @@ class Model {
     
     public static function getAll ($orderBy = NULL) {
 
-        $className = static::class;
+        $className = strtolower(static::class);
     
         $q = static::$_db->execQuery(
             'SELECT * FROM '. $className . ($orderBy ? ' ORDER BY :orderBy' : ''),
-            array( 'orderBy' => $orderBy )
+            $orderBy ? [ 'orderBy' => $orderBy ] : []
         );
     
         $results = $q->fetchAll();
@@ -97,7 +97,7 @@ class Model {
     
     public static function getById ($id) {
 
-        $className = static::class;
+        $className = strtolower(static::class);
     
         $q = static::$_db->execQuery(
             'SELECT * FROM '. $className .' WHERE id = :id',
@@ -112,7 +112,7 @@ class Model {
 
     public static function getByCondition ($condition) {
     
-        $className = static::class;
+        $className = strtolower(static::class);
 
         $q = static::$_db->execQuery(
             'SELECT * FROM '. $className .' WHERE ' . $condition,

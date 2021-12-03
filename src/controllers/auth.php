@@ -10,7 +10,7 @@ class Auth extends Controller {
     public function register () {
 
         if (isLoggedIn()) {
-            header('location: ' . getURL('/'));
+            header('location: ' . getURI('/'));
             exit();
         }
 
@@ -72,7 +72,7 @@ class Auth extends Controller {
                     // on déplace l'image vers le dossier d'assets
                     move_uploaded_file($_FILES['avatar']['tmp_name'], $avatarPath);
 
-                    header('location: ' . getURL('/auth/login'));
+                    header('location: ' . getURI('/auth/login'));
                     exit();
 
                 } else $data['usernameError'] = 'Ce nom d\'utilisateur est déjà prit';
@@ -86,7 +86,7 @@ class Auth extends Controller {
     public function login () {
 
         if (isLoggedIn()) {
-            header('location: ' . getURL('/'));
+            header('location: ' . getURI('/'));
             exit();
         }
 
@@ -128,14 +128,12 @@ class Auth extends Controller {
         unset($_SESSION['user']);
         unset($_SESSION['votes']);
 
-        header('location: ' . getURL('/auth/login'));
+        header('location: ' . getURI('/auth/login'));
     }
 
     // fonctions utils
 
     public function _createUserSession($loggedUser) {
-
-        var_dump($loggedUser);
 
         $_SESSION['user'] = [
             'id' => $loggedUser->getId(),
@@ -145,7 +143,7 @@ class Auth extends Controller {
         ];
         $_SESSION['votes'] = [];
 
-        header('location: ' . getURL('/'));
+        header('location: ' . getURI('/'));
     }
 
 }

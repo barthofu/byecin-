@@ -19,7 +19,7 @@ class User extends Model {
     public function register () {
 
         $q = static::$_db->execQuery(
-            'SELECT * FROM '. static::class .' WHERE username = :username',
+            'SELECT * FROM '. strtolower(static::class) .' WHERE username = :username',
             [ 'username' => $this->username ]
         );
             
@@ -27,8 +27,8 @@ class User extends Model {
 
         if ($result) return false;
         
-        $this->add(
-            'INSERT INTO '. static::class .' (username, password, avatar) VALUES (:username, :password, :avatar)',    
+        $this->insert(
+            'INSERT INTO '. strtolower(static::class) .' (username, password, avatar) VALUES (:username, :password, :avatar)',    
             [ 'username' => $this->username, 'password' => $this->password, 'avatar' => $this->avatar ]
         );
 
@@ -38,7 +38,7 @@ class User extends Model {
     public function login () {
 
         $q = static::$_db->execQuery(
-            'SELECT * FROM ' . static::class . ' WHERE username = :username',
+            'SELECT * FROM ' . strtolower(static::class) . ' WHERE username = :username',
             [ 'username' => $this->username ]
         );
 

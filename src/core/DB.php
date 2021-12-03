@@ -6,6 +6,8 @@ class DB extends PDO {
 
         try {
             parent::__construct('mysql:host=' . $host . ';dbname=' . $db . ';charset=utf8', $user, $pwd);
+            $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch (Exception $e) { 
             exit('Error :' . $e->getMessage()); 
         }
@@ -13,8 +15,14 @@ class DB extends PDO {
 
     public function execQuery ($query, $args) {
 
-        $q = $this->prepare($query);
-        $q->execute($args);
+        try {
+            $q = $this->prepare($query);
+            $q->execute($args);
+        }
+        catch (Exception $e) {
+            echo 'Exception -> ';
+            var_dump($e->getMessage());
+        }
         
         return $q;
     }

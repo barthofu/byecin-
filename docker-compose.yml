@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+
+  byecine:
+    image: byecine
+    build:
+      context: ./
+      dockerfile: ./.docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - 8000:80
+    env_file:
+      - .env
+    depends_on:
+      - byecine-db
+
+  byecine-db:
+    image: byecine-db
+    build: ./.docker/db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 9906:3306

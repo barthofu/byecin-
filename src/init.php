@@ -5,7 +5,6 @@
     // des constantes de configuration
 
 require_once 'config/config.php';
-require_once 'config/db.php';
 
     // du coeur de l'application : le router
 
@@ -20,7 +19,8 @@ require_once 'core/Controller.php';
 require_once 'core/DB.php';
 
 require_once 'core/Model.php';
-Model::$_db = new DB(HOST, DB, USER, PASSWORD);
+
+Model::$_db = new DB($_ENV['DB_HOST'], $_ENV['MYSQL_DATABASE'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD']);
 
     // utils
 

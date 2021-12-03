@@ -2,7 +2,7 @@
 
     font-family: 'Titillium Web', sans-serif;
     font-size: clamp(15px, 3vh, 200px);
-    color: whitesmoke;
+    color: var(--text-primary-color);
 
 }
 

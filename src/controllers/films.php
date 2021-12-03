@@ -13,7 +13,7 @@ class Films extends Controller {
     public function get ($params)  {
 
         // redirection forcée si aucun paramètre n'est passé dans l'url 
-        if (!isset($params['id'])) { header('location: ' . getURL('/films')); exit(); }
+        if (!isset($params['id'])) { header('location: ' . getURI('/films')); exit(); }
 
         $Film = $this->model('Film');
 
@@ -24,16 +24,16 @@ class Films extends Controller {
             'notFoundError' => false
         ];
 
-        if (!$data['film']) { header('location: ' . getURL('/films'));  exit(); }
+        if (!$data['film']) { header('location: ' . getURI('/films'));  exit(); }
 
         $this->view('films/get', $data);
     }
 
     public function update ($params) {
 
-        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        if (!isAdmin()) { header('location: ' . getURI('/'));  exit(); }
         // si aucun paramètre n'est passé dans l'url
-        if (!isset($params['id'])) { header('location: ' . getURL('/films')); exit(); }
+        if (!isset($params['id'])) { header('location: ' . getURI('/films')); exit(); }
 
         $Acteur = $this->model('Acteur');
         $Film = $this->model('Film');
@@ -45,7 +45,7 @@ class Films extends Controller {
             'allActeurs' => $Acteur::getAll()            
         ];
 
-        if (!$data['film'])  { header('location: ' . getURL('/films'));  exit(); }
+        if (!$data['film'])  { header('location: ' . getURI('/films'));  exit(); }
 
         // vérifie si le form d'inscription a été submit ou non
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -72,7 +72,7 @@ class Films extends Controller {
                 if ($data['film']->save()) {
                     //gestion du casting et des relations
                     if ($data['film']->saveCasting()) $data['success'] = true;
-                    header('location: ' . getURL('/films/get?id=' . $data['film']->getId()));
+                    header('location: ' . getURI('/films/get?id=' . $data['film']->getId()));
                     exit();
                 } else {
                     $data['error'] = 'updateFailed';
@@ -86,7 +86,7 @@ class Films extends Controller {
 
     public function add () {
 
-        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        if (!isAdmin()) { header('location: ' . getURI('/'));  exit(); }
 
         $Acteur = $this->model('Acteur');
 
@@ -135,15 +135,15 @@ class Films extends Controller {
 
     public function delete ($params) {
 
-        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        if (!isAdmin()) { header('location: ' . getURI('/'));  exit(); }
         // si aucun paramètre n'est passé dans l'url
-        if (!isset($params['id'])) { header('location: ' . getURL('/films')); exit(); }
+        if (!isset($params['id'])) { header('location: ' . getURI('/films')); exit(); }
 
         $Film = $this->model('Film');
         $film = $Film::getById($params['id']);
 
         // film non trouvé
-        if (!$film) { header('location: ' . getURL('/')); exit() ; }
+        if (!$film) { header('location: ' . getURI('/')); exit() ; }
 
         //on supprime les castings liés au film
         $film->setActeurs([]);
@@ -155,13 +155,13 @@ class Films extends Controller {
         //on supprime le film dans la base de données
         $film->delete();
 
-        header('location: ' . getURL('/films'));
+        header('location: ' . getURI('/films'));
     }
 
     public function vote ($params) {
 
         if (!isset($params['id'])) {
-            header('location: ' . getURL('/'));
+            header('location: ' . getURI('/'));
             exit();
         } else {
 
@@ -171,7 +171,7 @@ class Films extends Controller {
             if (!$film) { // film inexistant
 
                 // on redirige vers la home page
-                header('location: ' . getURL('/'));
+                header('location: ' . getURI('/'));
                 exit();
 
             } else { // film existant
@@ -195,7 +195,7 @@ class Films extends Controller {
 
             }
 
-            header('location: ' . getURL('/films/get?id='.$params['id']));
+            header('location: ' . getURI('/films/get?id='.$params['id']));
             exit();
         }
 

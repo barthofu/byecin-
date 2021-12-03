@@ -13,7 +13,7 @@ class Acteurs extends Controller {
     public function get ($params)  {
 
         // redirection forcée si aucun paramètre n'est passé dans l'url 
-        if (!isset($params['id'])) { header('location: ' . getURL('/acteurs')); exit(); }
+        if (!isset($params['id'])) { header('location: ' . getURI('/acteurs')); exit(); }
 
         $Acteur = $this->model('Acteur');
 
@@ -24,16 +24,16 @@ class Acteurs extends Controller {
             'notFoundError' => false
         ];
 
-        if (!$data['acteur']) { header('location: ' . getURL('/acteur'));  exit(); }
+        if (!$data['acteur']) { header('location: ' . getURI('/acteur'));  exit(); }
 
         $this->view('acteurs/get', $data);
     }
 
     public function update ($params) {
 
-        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        if (!isAdmin()) { header('location: ' . getURI('/'));  exit(); }
         // si aucun paramètre n'est passé dans l'url
-        if (!isset($params['id'])) { header('location: ' . getURL('/acteurs')); exit(); }
+        if (!isset($params['id'])) { header('location: ' . getURI('/acteurs')); exit(); }
 
         $Acteur = $this->model('Acteur');
         $Film = $this->model('Film');
@@ -45,7 +45,7 @@ class Acteurs extends Controller {
             'allFilms' => $Film::getAll()            
         ];
 
-        if (!$data['acteur'])  { header('location: ' . getURL('/acteurs'));  exit(); }
+        if (!$data['acteur'])  { header('location: ' . getURI('/acteurs'));  exit(); }
 
         // vérifie si le form d'inscription a été submit ou non
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -68,7 +68,7 @@ class Acteurs extends Controller {
                 if ($data['acteur']->save()) {
                     //gestion du casting et des relations
                     if ($data['acteur']->saveCasting()) $data['success'] = true;
-                    header('location: ' . getURL('/acteurs/get?id=' . $data['acteur']->getId()));
+                    header('location: ' . getURI('/acteurs/get?id=' . $data['acteur']->getId()));
                     exit();
                 } else {
                     $data['error'] = 'updateFailed';
@@ -81,7 +81,7 @@ class Acteurs extends Controller {
 
     public function add () {
 
-        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        if (!isAdmin()) { header('location: ' . getURI('/'));  exit(); }
 
         $Film = $this->model('Film');
 
@@ -126,15 +126,15 @@ class Acteurs extends Controller {
 
     public function delete ($params) {
 
-        if (!isAdmin()) { header('location: ' . getURL('/'));  exit(); }
+        if (!isAdmin()) { header('location: ' . getURI('/'));  exit(); }
         // si aucun paramètre n'est passé dans l'url
-        if (!isset($params['id'])) { header('location: ' . getURL('/acteurs')); exit(); }
+        if (!isset($params['id'])) { header('location: ' . getURI('/acteurs')); exit(); }
 
         $Acteur = $this->model('Acteur');
         $acteur = $Acteur::getById($params['id']);
 
         // film non trouvé
-        if (!$acteur) { header('location: ' . getURL('/')); exit() ; }
+        if (!$acteur) { header('location: ' . getURI('/')); exit() ; }
 
         //on supprime les castings liés à l'acteur
         $acteur->setFilms([]);
@@ -143,7 +143,7 @@ class Acteurs extends Controller {
         //on supprime l'acteur dans la base de données
         $acteur->delete();
 
-        header('location: ' . getURL('/acteurs'));
+        header('location: ' . getURI('/acteurs'));
     }
 
 }
